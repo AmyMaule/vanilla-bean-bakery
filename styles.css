@@ -140,7 +140,6 @@ li {
   position: relative;
   height: 61rem;
   max-height: 570px;
-  /* margin-top: 70px; */
 }
 
 .sale-banner-background::before {
@@ -294,7 +293,6 @@ li {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   gap: 7rem 3rem;
-  margin-bottom: 100px;
   padding: 0 20px;
   justify-items: center;
   justify-content: center;
@@ -355,6 +353,54 @@ li {
 }
 /* end of featured products */
 
+/* widget */
+.widget * {
+  color: rgb(26, 24, 24);
+  font-weight: 500;
+}
+
+.widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+}
+
+.widget-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 3.5rem;
+}
+
+.widget-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.widget-icon {
+  font-size: 5rem;
+}
+
+.widget-heading {
+  font-size: 3rem;
+  margin: 0.5rem;
+}
+
+.widget-description {
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+.delivery {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding: 0 4rem;
+  height: 150px;
+}
+/* end of widget */
+
 /* footer */
 .footer-container {
   background-color: rgb(26, 24, 24);
@@ -366,9 +412,7 @@ li {
 .footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* grid-template-columns: minmax(120px, 150px); */
   justify-items: center;
-  /* column-gap: 200px; */
 }
 
 .footer-column a:link,
@@ -570,7 +614,6 @@ li {
     margin-left: 0;
   }
 }
-
 
 @media only screen and (max-width: 567px) {
   .footer-container {
