@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Vanilla Bean Bakery</title>
+  <script src="main.js" defer></script>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+  <!-- box icons for icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+  <!-- header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="header-container">
+        <h1 class="header-title">
+          <a href="index.html">The Vanilla Bean</a>
+        </h1>
+      </div>
+
+      <div class="menu">
+        <div class="mobile-navbar">
+          <div class="header-container">
+            <h1 class="header-title">
+              <a href="index.html">The Vanilla Bean</a>
+            </h1>          </div>
+          <div class="x-close">
+            <i class="bx bx-x"></i>
+          </div>
+        </div>
+
+        <ul class="menu-container">
+          <li class="menu-item">
+            <a href="index.html" class="menu-item-link scroll-link">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="products.html" class="menu-item-link">Products</a>
+          </li>
+          <li class="menu-item">
+            <a href="about.html" class="menu-item-link scroll-link">About</a>
+          </li>
+          <li class="menu-item">
+            <a href="#contact" class="menu-item-link scroll-link">Contact</a>
+          </li>
+          <li class="menu-item">
+            <a href="shopping-basket.html" class="menu-item-link icon">
+              <i class="bx bx-shopping-bag shopping-basket-icon"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <a href="shopping-basket.html" class="mobile-basket-icon">
+        <i class="bx bx-shopping-bag"></i>
+      </a>
+
+      <div class="hamburger-menu">
+        <i class="bx bx-menu"></i>
+      </div>
+    </nav>
+  </header>
+  <div class="header-position"></div>
+  <!-- end of header -->
+
+  <!-- main content -->
+  <div class="grid-layout">
+    <div class="background"></div>
+    <h1 class="main-heading">Welcome to <span>The Vanilla Bean</span></h1>
+    <p class="main-para">Here at The Vanilla Bean Bakery, we've been making incredible <a href="#" class="about-link">cakes</a> and <a href="#" class="about-link">cupcakes</a> for many years. Order online or visit our shop to sample some of our latest and greatest creations.</p>
+    <div class="text-container left-text-container">
+      <p class="p-left">We're a team of 6 passionate bakers<span class="p-end"> and decorators</span>, working hard to create delicious cakes and cupcakes from scratch. We don't use any artificial flavours or preservatives, and every item is hand made, just like home baking. We use the highest quality ingredients including locally sourced free range eggs and grass fed butter. All of our products are freshly baked every day, with online orders baked and decorated to order.</p>
+    </div>
+
+    <img src="images/about/owen-bruce-hcET0JIGXoI-unsplash.jpg" alt="cupcake-decorating" class="cupcake-decorating">
+    <img src="images/about/stefan-k-PzJslB7ds_Y-unsplash.jpg" alt="cupcakes" class="cupcake-display">
+
+    <div class="text-container right-text-container">
+      <p class="p-right"> We're committed to to doing our best for the environment; all of our takeaway cake boxes are fully recyclable, and at the end of every day, all unsold products are donated to a local foodbank.</p>
+      <p class="p-right">As well as our signature bakes, we also make cakes and cupcakes to order - just get in touch using the contact form to let us know what you'd like and we'll get back to you within one working day. We also offer vegan and dairy-free options for all of our signature flavours, with no extra charge.</p>
+      <p class="p-right p-end">We hope to see you soon!</p>
+      <p class="signature">- The Vanilla Bean <span>team</span></p>
+    </div>
+  </div>
+  <!-- end of main content -->
+
+<!-- footer -->
+<footer class="section footer-container">
+  <div class="container">
+    <div class="footer">
+      <div class="footer-column">
+        <a href="#">Products</a>
+        <a href="#">Product Requests</a>
+        <a href="#">Gift Certificates</a>
+        <a href="#">Affiliate Marketing</a>
+      </div>
+      <div class="footer-column">
+        <a href="#">About Us</a>
+        <a href="#">Newsletter</a>
+        <a href="#">Our Locations</a>
+        <a href="#">Site Map</a>
+      </div>
+      <div class="footer-column">
+        <a href="#">Order History</a>
+        <a href="#">Allergen Information</a>
+        <a href="#">Shipping</a>
+        <a href="#">Refund Policy</a>
+      </div>
+      <div class="footer-column">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</footer>
+<!-- end of footer -->
+
+</body>
+</html>

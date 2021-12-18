@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+
+@import "./about.css";
 
 @font-face {
   font-family: modernline;
@@ -72,7 +75,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 120rem;
+  max-width: 145rem;
   margin: 0 auto;
 }
 
@@ -89,7 +92,7 @@ li {
   justify-content: center;
   font-family: modernline;
   font-size: 2.8rem;
-  margin-left: 5rem;
+  margin-left: 4rem;
   min-width: 260px;
 }
 
@@ -113,10 +116,6 @@ li {
   margin-right: 0.5rem;
 }
 
-/* .menu-item:not(:last-child) {
-  margin-right: 0.5rem;
-} */
-
 .shopping-basket-icon {
   font-size: 3rem;
 }
@@ -129,7 +128,6 @@ li {
   height: 70px;
   width: 100%;
 }
-
 /* end of header */
 
 /* Sale banner */
@@ -146,9 +144,9 @@ li {
 }
 
 .sale-banner-background::before {
-  background-image: url("./images/food4.jpg");
+  background-image: url("./images/aaaaa.jpg");
   background-size: cover;
-  background-position: top left;
+  background-position: right;
   content: '';
   position: absolute;
   width: 100%;
@@ -160,9 +158,9 @@ li {
   color: #722011;
   font-size: 6rem;
   font-weight: 700;
-  margin-bottom: 1.1rem;
-  font-family: oceanroad;
-  text-shadow: 2px 2px 5px #d1b2b2, 5px 5px 5px #ffffff;
+  margin-bottom: 1.6rem;
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 2px 2px 5px #f09494, 5px 5px 5px #f5cccc;
 }
 
 .sale-small {
@@ -174,7 +172,7 @@ li {
   color: #20060b;
   font-size: 5.5rem;
   font-weight: 700;
-  text-shadow: 1px 1px 0 #f1c7c7, 2px 2px 0 #2389a8;
+  text-shadow: 1px 1px 0 #f1c7c7, 2px 2px 0 #6e9ba8;
 }
 
 .btn {
@@ -182,14 +180,14 @@ li {
   background-color: #e9d1d2;
   border: 3px solid #423b39;
   padding: 1.2rem 4rem;
-  /* color: #fff; */
+  width: 200px;
+  text-align: center;
   font-weight: 600;
-  margin-top: 3rem;
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 
 .shop-now-btn {
-  margin-top: 4rem;
+  margin-top: 3rem;
   margin-left: 120px;
   transition: 0.5s ease;
 }
@@ -263,7 +261,7 @@ li {
 /* end of category selection */
 
 
-/* Featured Products */
+/* featured Products */
 .featured {
   margin-top: 100px;
 }
@@ -309,11 +307,7 @@ li {
   background-color: #fff;
   box-shadow: 0 7px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease-in-out;
-}
-
-.product:hover {
-  box-shadow: 0 7px 12px rgba(0, 0, 0, 0.37);
-  transition: ease-in-out 0.3s;
+  cursor: pointer;
 }
 
 .product-image {
@@ -354,17 +348,12 @@ li {
   font-size: 1.8rem;
 }
 
-.product:hover .product-image::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  border-radius: 1rem 1rem 0 0;
-  background-color: rgba(97, 19, 32, 0.4);
-  transition: all 0.3s ease-in-out;
+.product:hover {
+  box-shadow: 5px 10px 12px rgba(0, 0, 0, 0.45);
+  transition: ease-in-out 0.3s;
+  background-color: #e9d1d2d0;
 }
+/* end of featured products */
 
 /* footer */
 .footer-container {
@@ -584,10 +573,25 @@ li {
 
 
 @media only screen and (max-width: 567px) {
-  .footer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 40px;
+  .footer-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 3rem;
+  }
+
+  .footer-column a:link,
+  .footer-column a:visited {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+}
+
+@media only screen and (max-width: 515px) {
+.footer {
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+  margin-left: -1rem;
+  overflow: hidden;
   }
 }
 
@@ -607,9 +611,7 @@ li {
   .mobile-basket-icon {
     padding-left: 5%;
   }
-
 }
-
 
 @media only screen and (max-width: 480px) {
   .category-selection {
@@ -640,7 +642,6 @@ li {
   .mobile-basket-icon {
     padding-left: 0%;
   }
-
 }
 
 @media only screen and (max-width: 400px) {
