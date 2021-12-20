@@ -386,11 +386,13 @@ li {
 .widget-heading {
   font-size: 3rem;
   margin: 0.5rem;
+  text-align: center;
 }
 
 .widget-description {
   font-size: 1.8rem;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .delivery {
@@ -433,6 +435,66 @@ li {
 
 
 /* media queries */
+
+@media only screen and (max-width: 1000px) {
+  .widget-container {
+    column-gap: 2.5rem;
+  }
+
+  .widget-icon {
+    font-size: 5rem;
+  }
+
+  .widget-heading {
+    font-size: 2.6rem;
+    margin: 0.5rem;
+  }
+
+  .widget-description {
+    font-size: 1.7rem;
+    letter-spacing: 0.5px;
+  }
+
+  .delivery {
+    padding: 0 4rem;
+  }
+}
+
+@media only screen and (max-width: 890px) {
+  .widget-container {
+    column-gap: 2.5rem;
+  }
+
+  .widget-icon {
+    font-size: 4.5rem;
+  }
+
+  .widget-heading {
+    font-size: 2.3rem;
+    margin: 0.5rem;
+  }
+
+  .widget-description {
+    font-size: 1.7rem;
+    letter-spacing: 0.5px;
+  }
+
+  .delivery {
+    padding: 0 3rem;
+  }
+}
+
+@media only screen and (max-width: 744px) {
+  .widget-container {
+    column-gap: 1.5rem;
+  }
+
+  .delivery {
+    height: 130px;
+    padding: 0 2rem;
+  }
+}
+
 @media only screen and (max-width: 680px) {
   /* side menu that opens on hamburger click */
   .menu {
@@ -573,6 +635,24 @@ li {
   }
 }
 
+@media only screen and (max-width: 660px) {
+  .widget-container {
+    column-gap: 1.5rem;
+  }
+
+  .widget-heading {
+    font-size: 2rem;
+  }
+
+  .delivery {
+    padding: 0;
+  }
+
+  .loyalty {
+    padding-right: 1rem;
+  }
+}
+
 @media only screen and (max-width: 610px) {
   .sale-banner {
     display: flex;
@@ -594,6 +674,21 @@ li {
 
   .mobile-basket-icon {
     padding-left: 15%;
+  }
+
+  .loyalty {
+    padding: 0;
+  }
+
+  .widget {
+    height: 370px;
+  }
+
+  /* small negative margin right to account for difference in size between the content of the left and right columns */
+  .widget-container {
+    column-gap: 0.5rem;
+    width: 98%;
+    margin-right: -2%;
   }
 }
 
@@ -629,6 +724,16 @@ li {
   }
 }
 
+@media only screen and (max-width: 532px) {
+  .widget-heading {
+    font-size: 1.8rem;
+  }
+
+  .widget-description {
+    font-size: 1.5rem;
+  }
+}
+
 @media only screen and (max-width: 515px) {
 .footer {
   grid-template-columns: repeat(2, 1fr);
@@ -653,6 +758,24 @@ li {
 
   .mobile-basket-icon {
     padding-left: 5%;
+  }
+}
+
+@media only screen and (max-width: 490px) {
+    .widget-container {
+    column-gap: 0rem;
+  }
+
+  .widget-heading {
+    max-width: 100px;
+  }
+
+  .delivery {
+    height: 160px;
+  }
+
+  .widget-description {
+    font-size: 1.4rem;
   }
 }
 
@@ -684,6 +807,12 @@ li {
 
   .mobile-basket-icon {
     padding-left: 0%;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .widget-container {
+    grid-template-columns: 1fr 110px 1fr;
   }
 }
 
@@ -720,13 +849,26 @@ li {
   }
 }
 
-@media only screen and (max-width: 344px) {
-  .sale-large {
-    font-size: 3.2rem;
+@media only screen and (max-width: 390px) {
+  .widget-container {
+    grid-template-columns: auto 105px auto;
+  }
+
+  .widget {
+    height: 320px;
+  }
+
+  .widget-container {
+    width: 99%;
+    margin-right: -1%;
   }
 }
 
 @media only screen and (max-width: 360px) {
+  .widget-container {
+    grid-template-columns: auto 90px auto;
+  }
+
   .product {
     height: 360px;
   }
@@ -753,7 +895,27 @@ li {
   }
 }
 
+@media only screen and (max-width: 344px) {
+  .sale-large {
+    font-size: 3.2rem;
+  }
+}
+
+@media only screen and (max-width: 335px) {
+  .widget-description {
+    font-size: 1.3rem;
+  }
+}
+
 @media only screen and (max-width: 320px) {
+  .widget-container {
+    grid-template-columns: auto auto auto;
+  }
+
+  .widget-description {
+    max-width: 55px;
+  }
+
   .hamburger-menu {
     padding-right: 0.5rem;
   }
