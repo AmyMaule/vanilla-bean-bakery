@@ -240,7 +240,7 @@ li {
 
 .cakes:hover .category-cakes,
 .cupcakes:hover .category-cupcakes,
-.shop-now-btn:hover {
+.shop-now-btn:hover, .order-now-btn:hover {
   opacity: 0.85;
   transition: ease 0.5s;
   -moz-transition: ease 0.5s;
@@ -420,6 +420,31 @@ li {
   padding: 0 4rem;
   height: 150px;
 }
+
+.order-now-btn-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rem;
+  margin-top: -8rem;
+}
+
+.order-now-btn {
+  width: 300px;
+  transition: ease 0.5s;
+  -moz-transition: ease 0.5s;
+	-ms-transition: ease 0.5s;
+	-o-transition: ease 0.5s;
+	transition: ease 0.5s;
+  color: black;
+  font-size: 4rem;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 2rem 0;
+}
+
 /* end of widget */
 
 /* footer */
