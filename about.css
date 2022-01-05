@@ -66,7 +66,6 @@
 }
 
 .right-text-container {
-  /* grid-column: 6/7; */
   grid-row: 3/5;
 }
 

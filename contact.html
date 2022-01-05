@@ -5,12 +5,126 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Vanilla Bean Bakery</title>
-  <script src="main.js" defer></script>
+  <script src="contact.js" defer></script>
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="contact.css">
   <link rel="stylesheet" href="styles.css">
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <script src="main.js" defer></script>
 </head>
 <body>
+  <header class="header">
+    <nav class="navbar">
+      <div class="header-container">
+        <h1 class="header-title">
+          <a href="index.html">The Vanilla Bean</a>
+        </h1>
+      </div>
 
+      <div class="menu">
+        <div class="mobile-navbar">
+          <div class="header-container">
+            <h1 class="header-title">
+              <a href="index.html">The Vanilla Bean</a>
+            </h1>          </div>
+          <div class="x-close">
+            <i class="bx bx-x"></i>
+          </div>
+        </div>
+
+        <ul class="menu-container">
+          <li class="menu-item">
+            <a href="index.html" class="menu-item-link scroll-link">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="products.html" class="menu-item-link">Products</a>
+          </li>
+          <li class="menu-item">
+            <a href="about.html" class="menu-item-link scroll-link">About</a>
+          </li>
+          <li class="menu-item">
+            <a href="contact.html" class="menu-item-link scroll-link">Contact</a>
+          </li>
+          <li class="menu-item">
+            <a href="shopping-basket.html" class="menu-item-link icon">
+              <i class="bx bx-shopping-bag shopping-basket-icon"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <a href="shopping-basket.html" class="mobile-basket-icon">
+        <i class="bx bx-shopping-bag"></i>
+      </a>
+      <div class="hamburger-menu">
+        <i class="bx bx-menu"></i>
+      </div>
+    </nav>
+  </header>
+  <div class="header-position"></div>
+  <!-- end of header -->
+
+  <!-- contact section -->
+  <div class="section contact-container">
+    <h1 class="contact-title">Get in Contact</h1>
+    <form action="#" method="post">
+      <div class="name">
+        <label for="name"></label>
+        <input type="text" placeholder="Name" name="name" id="name-input" class="field-required" required="required">
+      </div>
+      <div class="email">
+        <label for="email"></label>
+        <input type="email" placeholder="E-mail address" name="email" class="form-email field-required" required="required">
+      </div>
+      <div class="telephone">
+        <label for="telephone"></label>
+        <input type="text" placeholder="Phone number" name="telephone" id="telephone-input">
+      </div>
+      <div class="subject">
+        <label for="subject"></label>
+        <input type="text" placeholder="Subject" name="subject" id="subject-input" class="field-required" required="required">
+      </div>
+      <div>
+        <label for="message"></label>
+        <textarea name="message" placeholder="Your message" id="message_input" class="form-message field-required" cols="30" rows="5" required="required"></textarea>
+      </div>
+      <button class="btn-send-message">Send Message</button>
+      <div class="sent-message">Thank you for your message! We'll get back to you within 1 working day.</div>
+    </form>
+  </div>
+  <!-- end of contact section -->
+
+ <!-- footer -->
+<footer class="section footer-container">
+  <div class="container">
+    <div class="footer">
+      <div class="footer-column">
+        <a href="#">Products</a>
+        <a href="#">Product Requests</a>
+        <a href="#">Gift Certificates</a>
+        <a href="#">Affiliate Marketing</a>
+      </div>
+      <div class="footer-column">
+        <a href="#">About Us</a>
+        <a href="#">Newsletter</a>
+        <a href="#">Our Locations</a>
+        <a href="#">Site Map</a>
+      </div>
+      <div class="footer-column">
+        <a href="#">Order History</a>
+        <a href="#">Allergen Information</a>
+        <a href="#">Shipping</a>
+        <a href="#">Refund Policy</a>
+      </div>
+      <div class="footer-column">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Careers</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</footer>
+<!-- end of footer -->
 </body>
 </html>

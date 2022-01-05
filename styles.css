@@ -98,6 +98,10 @@ li {
 
 .menu-item {
   transition: ease 0.3s;
+  -moz-transition: ease 0.3s;
+	-ms-transition: ease 0.3s;
+	-o-transition: ease 0.3s;
+	transition: ease 0.3s;
   font-size: 1.9rem;
   padding: 0 1rem;
 }
@@ -105,6 +109,10 @@ li {
 .menu-item:hover {
   transform: scale(1.2);
   transition: ease 0.3s;
+  -moz-transition: ease 0.3s;
+	-ms-transition: ease 0.3s;
+	-o-transition: ease 0.3s;
+	transition: ease 0.3s;
 }
 
 .menu-container {
@@ -188,7 +196,11 @@ li {
 .shop-now-btn {
   margin-top: 3rem;
   margin-left: 120px;
-  transition: 0.5s ease;
+  transition: ease 0.5s;
+  -moz-transition: ease 0.5s;
+	-ms-transition: ease 0.5s;
+	-o-transition: ease 0.5s;
+	transition: ease 0.5s;
 }
 /* end of sale banner */
 
@@ -230,7 +242,11 @@ li {
 .cupcakes:hover .category-cupcakes,
 .shop-now-btn:hover {
   opacity: 0.85;
-  transition: 0.5s ease;
+  transition: ease 0.5s;
+  -moz-transition: ease 0.5s;
+	-ms-transition: ease 0.5s;
+	-o-transition: ease 0.5s;
+	transition: ease 0.5s;
   letter-spacing: 1px;
   border-color: #423b3985;
   cursor: pointer;
@@ -252,8 +268,11 @@ li {
   border: 3px solid #423b39bd;
   position: relative;
   margin-top: -100%;
-  transition: 0.5s ease;
-  width: 240px;
+  transition: ease 0.5s;
+  -moz-transition: ease 0.5s;
+	-ms-transition: ease 0.5s;
+	-o-transition: ease 0.5s;
+	transition: ease 0.5s;  width: 240px;
   padding-left: 0;
   padding-right: 0;
 }
@@ -409,6 +428,8 @@ li {
   padding-top: 5rem;
   padding-bottom: 5rem;
   line-height: 3rem;
+  position: relative;
+  z-index: 3;
 }
 
 .footer {
@@ -435,7 +456,6 @@ li {
 
 
 /* media queries */
-
 @media only screen and (max-width: 1000px) {
   .widget-container {
     column-gap: 2.5rem;

@@ -1,0 +1,359 @@
+body {
+  background: url("./images/about/contact-background.jpg") center center no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+.contact-container {
+  border: solid 3px #423b39;
+  max-width: 775px;
+  max-height: 600px;
+  margin: 2rem auto;
+  position: relative;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.contact-title {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+form {
+  padding: 2rem;
+  margin: 3rem 0;
+}
+
+.name {
+	float: left;
+	width: 45%;
+}
+
+.email {
+	float: right;
+	width: 50%;
+}
+
+.telephone {
+  width: 100%;
+}
+
+.subject {
+  width: 100%;
+  color: rgb(26, 24, 24);
+}
+
+.message {
+	line-height: 2rem;
+	height: 150px;
+	resize: none;
+  width: 100%;
+}
+
+input[type="text"], [type="email"], textarea {
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+	background: none;
+  border: none;
+	border-bottom: solid 2px #e9d1d2;
+	color: rgb(26, 24, 24);
+	font-size: 1.8rem;
+  letter-spacing: 1px;
+	margin-bottom: 3rem;
+	padding-bottom: 1.5rem;
+  padding-left: 0.5rem;
+	width: 100%;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+input[type="text"]:focus, [type="email"]:focus {
+	outline: none;
+	padding-left: 0;
+  border-bottom-color: #f7a23a;
+}
+
+textarea:focus {
+  outline: none;
+  border-bottom-color: #f7a23a;
+}
+
+.btn-send-message {
+  font-family: inherit;
+  border: solid 3px #6f242a;
+  color: #6f242a;
+  font-size: 2.5rem;
+  outline: none;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  -webkit-transition: ease 0.5s;
+	-moz-transition: ease 0.5s;
+	-ms-transition: ease 0.5s;
+	-o-transition: ease 0.5s;
+	transition: ease 0.5s;
+  margin-left: 70%;
+}
+
+.btn-send-message:hover {
+  transition: 0.8s ease;
+  background: #6f242a;
+  color: #fff;
+}
+
+.sent-message {
+  position: absolute;
+  font-size: 2rem;
+  width: 300px;
+  left: calc(50% - 270px);
+  text-align: center;
+  line-height: 3rem;
+  top: 62rem;
+  z-index: 2;
+  opacity: 0;
+}
+
+.sent {
+  opacity: 1;
+  transform: translateY(-13.5rem);
+  transition: 0.7s ease;
+}
+
+
+/* media queries */
+@media screen and (max-width: 950px) {
+  .contact-container {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    width: 75%;
+    height: 500px;
+  }
+
+  input[type="text"], [type="email"], textarea {
+    font-size: 1.6rem;
+    margin-bottom: 2rem
+  }
+
+  .btn-send-message {
+    font-size: 2.2rem;
+    margin-left: 60%;
+  }
+
+  .sent {
+    opacity: 1;
+    transform: translateY(-19rem);
+    transition: 0.7s ease;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .contact-container {
+    height: 550px;
+  }
+
+  .name {
+    float: none;
+    width: 100%;
+  }
+
+  .email {
+    float: none;
+    width: 100%;
+  }
+
+  .btn-send-message {
+    margin-left: 62%;
+  }
+
+  .sent-message {
+    font-size: 1.65rem;
+    width: 290px;
+    left: calc(50% - 250px);
+    top: 61.5rem;
+  }
+
+  .sent {
+    transform: translateY(-13.5rem);
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .btn-send-message {
+    font-size: 1.9rem;
+    margin-left: 67%;
+    padding: 1rem 1.5rem;
+    margin-top: 0.5rem;
+    min-width: 150px;
+  }
+
+  .sent-message {
+    font-size: 1.65rem;
+    width: 290px;
+    left: calc(50% - 230px);
+  }
+}
+
+@media screen and (max-width: 624px) {
+  .contact-container {
+    width: 82%;
+  }
+
+  .sent-message {
+    width: 270px;
+    left: calc(50% - 220px);
+  }
+}
+
+@media screen and (max-width: 572px) {
+  input[type="text"], [type="email"], textarea {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-container {
+    width: 90%;
+    height: 530px;
+    overflow: hidden;
+  }
+
+  .btn-send-message {
+    margin-left: 64.5%;
+  }
+
+  .sent-message {
+    width: 270px;
+    left: calc(50% - 220px);
+    top: 59.5rem;
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 514px) {
+  .btn-send-message {
+    font-size: 1.75rem;
+    min-width: 130px;
+    margin-left: 64%;
+  }
+
+  .sent-message {
+    width: 220px;
+    left: calc(50% - 195px);
+    font-size: 1.45rem;
+    line-height: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .sent-message {
+    left: calc(50% - 190px);
+  }
+
+  .btn-send-message {
+    font-size: 1.7rem;
+    min-width: 120px;
+    margin-left: 63%;
+  }
+}
+
+@media screen and (max-width: 472px) {
+  .sent-message {
+    max-width: 200px;
+    line-height: 2rem;
+    left: calc(50% - 180px);
+    line-height: 2rem;
+  }
+
+  .btn-send-message {
+    margin-left: 64%;
+    max-width: 90px;
+    width: 90px;
+    margin-top: -0.5rem;
+  }
+}
+
+@media screen and (max-width: 438px) {
+  .sent-message {
+    left: calc(50% - 175px);
+    max-width: 210px;
+    /* check heiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiight */
+  }
+
+  .btn-send-message {
+    margin-left: 66%;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .sent-message {
+    max-width: 180px;
+    left: calc(50% - 160px);
+  }
+
+  .btn-send-message {
+    margin-left: 66%;
+    min-width: 100px;
+  }
+
+  input[type="text"], [type="email"], textarea {
+    font-size: 1.45rem;
+  }
+}
+
+@media screen and (max-width: 395px) {
+  .sent-message {
+    left: calc(50% - 150px);
+    top: 59rem;
+  }
+}
+
+
+@media screen and (max-width: 370px) {
+  .sent-message {
+    max-width: 170px;
+    left: calc(50% - 140px);
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .btn-send-message {
+    margin-left: 63%;
+  }
+
+  .sent-message {
+    max-width: 165px;
+    left: calc(50% - 140px);
+  }
+}
+
+@media screen and (max-width: 335px) {
+  .btn-send-message {
+    width: 95px;
+    min-width: 95px;
+    margin-left: 62%;
+  }
+
+  .sent-message {
+    font-size: 1.4rem;
+    left: calc(50% - 140px);
+    top: 58.5rem;
+  }
+
+  input[type="text"], [type="email"], textarea {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 329px) {
+  .btn-send-message {
+    width: 90px;
+    min-width: 90px;
+    margin-left: 62%;
+  }
+
+  .sent-message {
+    max-width: 135px;
+    left: calc(50% - 125px);
+    top: 58rem;
+  }
+}
