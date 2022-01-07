@@ -71,8 +71,9 @@ class Display {
     </div>`
     })
 
-    let productsContainer = document.querySelector(".products-container");
-    productsContainer.innerHTML = productHTML;
+    // if the current page is not products.html, productsContainer will be undefined
+    let productsContainer = document.querySelector(".products-container") || "";
+    if (productsContainer) productsContainer.innerHTML = productHTML;
   }
 
   alterProductDisplay(type) {
