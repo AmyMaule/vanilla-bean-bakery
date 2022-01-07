@@ -1,15 +1,11 @@
-// const selectCakeDOM = document.querySelector(".select-cake");
-// const selectCupcakeDOM = document.querySelector(".select-cupcake");
-// const selectAllDOM = document.querySelector(".select-all");
-
-import { SPACE_ID, ACCESS_TOKEN } from "./apikey.js";
+import ACCESS_TOKEN from "./apikey.js";
 
 let onlyCakes = false;
 let onlyCupcakes = false;
 
 var client = contentful.createClient({
     // This is the space ID
-    space: SPACE_ID,
+    space: "b7l7de9fk9yy",
     // This is the access token for this space
     accessToken: ACCESS_TOKEN
 });

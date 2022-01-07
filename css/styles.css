@@ -6,17 +6,17 @@
 
 @font-face {
   font-family: modernline;
-  src: url("./fonts/modernline.otf");
+  src: url("../fonts/modernline.otf");
 }
 
 @font-face {
   font-family: oceanroad;
-  src: url("./fonts/Ocean\ Road.ttf");
+  src: url("../fonts/Ocean\ Road.ttf");
 }
 
 @font-face {
   font-family: Saphira;
-  src: url("./fonts/Saphira\ DEMO.otf");
+  src: url("../fonts/Saphira\ DEMO.otf");
 }
 
 *,
