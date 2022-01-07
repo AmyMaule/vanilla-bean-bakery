@@ -10,7 +10,7 @@
 }
 
 .background {
-  background-image: url("./images/about/pexels-shvets-production-7525102.jpg");
+  background-image: url("../images/about/pexels-shvets-production-7525102.jpg");
   background-size: cover;
   grid-column: 1/4;
   grid-row: 1/6;
