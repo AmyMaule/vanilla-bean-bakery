@@ -127,3 +127,4 @@ categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
 // have featured cakes and cupcakes shuffle based on day of the week?
 // products.html sorting options (low-high) etc
 // add 20% discount for chocolate cupcakes - require discount code?
+// responsive styles for products page

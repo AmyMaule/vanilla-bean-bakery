@@ -151,7 +151,7 @@ li {
 }
 
 .sale-banner-background::before {
-  background-image: url("../images/aaaaa.jpg");
+  background-image: url("../images/homepage/sale-banner.jpg");
   background-size: cover;
   background-position: right;
   content: '';
