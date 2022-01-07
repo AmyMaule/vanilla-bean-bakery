@@ -120,3 +120,10 @@ categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
   products.getProducts()
   .then(data => display.displayProducts(data));
 }))
+
+
+// TODO
+// index page buttons - shop cakes take to products.html with cakes selected, same for shop cupcakes
+// have featured cakes and cupcakes shuffle based on day of the week?
+// products.html sorting options (low-high) etc
+// add 20% discount for chocolate cupcakes - require discount code?
