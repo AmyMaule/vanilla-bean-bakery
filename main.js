@@ -2,14 +2,16 @@
 // const selectCupcakeDOM = document.querySelector(".select-cupcake");
 // const selectAllDOM = document.querySelector(".select-all");
 
+import { SPACE_ID, ACCESS_TOKEN } from "./apikey.js";
+
 let onlyCakes = false;
 let onlyCupcakes = false;
 
 var client = contentful.createClient({
     // This is the space ID
-    space: "b7l7de9fk9yy",
+    space: SPACE_ID,
     // This is the access token for this space
-    accessToken: "CUd9ZJbJRSvK3rCAlFn4vxE21vz2UgzWlVd4z6HVyj4"
+    accessToken: ACCESS_TOKEN
 });
 
 
@@ -98,16 +100,24 @@ class Storage {}
 // })
 
 
-let categorySelectBtns = Array.from(document.querySelectorAll(".category-select")).forEach(btn => btn.addEventListener("click", e => {
+let categorySelectBtns = Array.from(document.querySelectorAll(".category-select"));
+
+categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
   if (e.target.classList.contains("select-cake")) {
     onlyCupcakes = false;
     onlyCakes = true;
+    categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
+    e.target.classList.add("selected");
   } else if (e.target.classList.contains("select-cupcake")) {
     onlyCupcakes = true;
     onlyCakes = false;
+    categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
+    e.target.classList.add("selected");
   } else {
     onlyCupcakes = false;
     onlyCakes = false;
+    categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
+    e.target.classList.add("selected");
   }
 
   products.getProducts()
