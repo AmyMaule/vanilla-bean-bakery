@@ -73,7 +73,6 @@
 .selected {
   background-color: #e9d1d2;
   border: 2px solid #e46c6c;
-
 }
 /* end of category selection */
 
@@ -103,7 +102,6 @@
   font-family: Saphira;
   display: none;
 } */
-/* end of sorting options */
 
 select {
   appearance: none;
@@ -163,3 +161,4 @@ select {
   background-color: #e9d1d2;
   color: #6f242a;
 }
+/* end of sorting options */

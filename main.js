@@ -68,7 +68,6 @@ class Display {
   displayProducts(products) {
     products = products.filter(product => {
       if (onlyCakes) {
-        // console.log(products.productType);
         return product.productType === "cake";
       } else if (onlyCupcakes) {
         return product.productType === "cupcake";
@@ -86,9 +85,7 @@ class Display {
         <img src="${product.productImage}" alt="">
       </div>
       <div class="product-information">
-        <a href="#">
-          <h3 class="product-title">${product.title}</h3>
-        </a>
+        <h3 class="product-title">${product.title}</h3>
         <div class="price-container">
           <h4 class="price-from">${product.productType === "cake" ? "from" : ""}</h4>
           <h4 class="price-amount">$${product.priceSmall}</h4>
@@ -99,10 +96,23 @@ class Display {
 
     // if the current page is not products.html, productsContainer will be undefined
     let productsContainer = document.querySelector(".products-container") || "";
-    // if (productsContainer) productsContainer.innerHTML = productHTML;
-    productsContainer.insertAdjacentHTML('afterbegin', productHTML);
+    if (productsContainer) productsContainer.innerHTML = productHTML;
+    // productsContainer.insertAdjacentHTML('afterbegin', productHTML);
+    this.getMoreInfoBtns();
+  }
+
+  getMoreInfoBtns() {
+    const productMoreInfo = Array.from(document.querySelectorAll(".product"));
+    productMoreInfo.forEach(product => {
+      // click anywhere in the product box to visit the product page for that item
+      product.addEventListener("click", () => {
+      document.location.href = `product.html?id=${product.id}`;
+      // https://vanillabeanbakery.netlify.app/product.html?id=XXXXX
+      })
+    })
   }
 }
+
 
 class Storage {}
 
@@ -150,9 +160,8 @@ if (sortingOptionsDOM) {
   })
 }
 
-// Product more info
-const productMore = document.querySelector(".products-container")
-console.log(productMore);
+
+
 
 // TODO
 // index page buttons - shop cakes take to products.html with cakes selected, same for shop cupcakes
