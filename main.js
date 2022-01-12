@@ -75,7 +75,6 @@ class Display {
       } else return products;
     })
 
-
     let productHTML = "";
     products.forEach(product => {
       productHTML += `
@@ -100,7 +99,8 @@ class Display {
 
     // if the current page is not products.html, productsContainer will be undefined
     let productsContainer = document.querySelector(".products-container") || "";
-    if (productsContainer) productsContainer.innerHTML = productHTML;
+    // if (productsContainer) productsContainer.innerHTML = productHTML;
+    productsContainer.insertAdjacentHTML('afterbegin', productHTML);
   }
 }
 
@@ -117,39 +117,42 @@ class Storage {}
 // })
 
 
+// Category selection - cakes, cupcakes or everything
 let categorySelectBtns = Array.from(document.querySelectorAll(".category-select"));
-
-categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
-  if (e.target.classList.contains("select-cake")) {
-    onlyCupcakes = false;
-    onlyCakes = true;
+if (categorySelectBtns.length !== 0) {
+  // show cakes and/or cupcakes based on whether onlyCupcakes and onlyCakes are true or false - if both are false, all categories will show, if either is true, only that category will be shown
+  categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
+    // the "selected" class highlights the selected category for the user - first remove "selected" from all buttons, then re-add it to the correct button
     categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
     e.target.classList.add("selected");
-  } else if (e.target.classList.contains("select-cupcake")) {
-    onlyCupcakes = true;
+    // reset onlyCakes and onlyCupcakes to false
     onlyCakes = false;
-    categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
-    e.target.classList.add("selected");
-  } else {
     onlyCupcakes = false;
-    onlyCakes = false;
-    categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
-    e.target.classList.add("selected");
-  }
+    if (e.target.classList.contains("select-cake")) {
+      onlyCakes = true;
+    } else if (e.target.classList.contains("select-cupcake")) {
+      onlyCupcakes = true;
+    }
 
-  products.getProducts()
-  .then(data => display.displayProducts(data));
-}))
+    products.getProducts()
+    .then(data => display.displayProducts(data));
+  }))
+}
 
+// Sorting options - by price low to high, recommended, etc
 const sortingOptionsDOM = document.querySelector(".sorting-options") || "";
 if (sortingOptionsDOM) {
   sortingOptionsDOM.addEventListener("change", () => {
-    // console.log(sortingOptionsDOM.selectedIndex);
+    // currentSort is set to the index of the selected sorting option for use in the display.sortProducts method
     currentSort = sortingOptionsDOM.selectedIndex;
     products.getProducts()
     .then(data => display.sortProducts(data));
   })
 }
+
+// Product more info
+const productMore = document.querySelector(".products-container")
+console.log(productMore);
 
 // TODO
 // index page buttons - shop cakes take to products.html with cakes selected, same for shop cupcakes
