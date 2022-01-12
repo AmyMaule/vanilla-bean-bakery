@@ -2,6 +2,7 @@ import ACCESS_TOKEN from "./apikey.js";
 
 let onlyCakes = false;
 let onlyCupcakes = false;
+let currentSort = 0;
 
 var client = contentful.createClient({
     // This is the space ID
@@ -40,6 +41,29 @@ class Products {
 }
 
 class Display {
+  sortProducts(products) {
+    // 1 is recommended (which sorts by product ID)
+    if (currentSort === 1) {
+      products = products.sort((a, b) => a.productId > b.productId ? 1 : -1);
+    // 2 is price, low to high
+    } else if (currentSort === 2) {
+      products = products.sort((a, b) => a.priceSmall > b.priceSmall ? 1 : -1);
+    // 3 is price, high to low
+    } else if (currentSort === 3) {
+      products = products.sort((a, b) => a.priceSmall < b.priceSmall ? 1 : -1);
+    // 4 is alphabetical a-z
+    } else if (currentSort === 4) {
+      products = products.sort((a, b) => a.title > b.title ? 1 : -1);
+    // 5 is reverse alphabetical z-a
+    } else if (currentSort === 5) {
+      products = products.sort((a, b) => b.title > a.title ? 1 : -1);
+    }
+    // if currentSort is 0 it is on "Sort by", so the product order on the page should not change
+    if (currentSort !== 0) {
+      this.displayProducts(products);
+    }
+  }
+
   // products is an array of objects, one for each item
   displayProducts(products) {
     products = products.filter(product => {
@@ -51,12 +75,15 @@ class Display {
       } else return products;
     })
 
-    let productHTML = "";
 
+    let productHTML = "";
     products.forEach(product => {
       productHTML += `
       <div class="product" id="${product.productId}">
       <div class="product-image">
+        <div class="product-more-options-container">
+          <h4 class="product-more-options">More information & size options</h4>
+        </div>
         <img src="${product.productImage}" alt="">
       </div>
       <div class="product-information">
@@ -74,13 +101,6 @@ class Display {
     // if the current page is not products.html, productsContainer will be undefined
     let productsContainer = document.querySelector(".products-container") || "";
     if (productsContainer) productsContainer.innerHTML = productHTML;
-  }
-
-  alterProductDisplay(type) {
-    if (type.classList.contains("select-cake")) {
-      console.log("cakes only");
-      console.log();
-    }
   }
 }
 
@@ -121,6 +141,15 @@ categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
   .then(data => display.displayProducts(data));
 }))
 
+const sortingOptionsDOM = document.querySelector(".sorting-options") || "";
+if (sortingOptionsDOM) {
+  sortingOptionsDOM.addEventListener("change", () => {
+    // console.log(sortingOptionsDOM.selectedIndex);
+    currentSort = sortingOptionsDOM.selectedIndex;
+    products.getProducts()
+    .then(data => display.sortProducts(data));
+  })
+}
 
 // TODO
 // index page buttons - shop cakes take to products.html with cakes selected, same for shop cupcakes
@@ -128,3 +157,6 @@ categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
 // products.html sorting options (low-high) etc
 // add 20% discount for chocolate cupcakes - require discount code?
 // responsive styles for products page
+// for cupcakes, can buy 1 or 6
+// for cakes, size options 6inch, 8inch, 10inch, except 2 tier cakes, where it's 6+8, 8+10, 10+12 inch
+// url: https://vanillabeanbakery.netlify.app/product.html?id=XXXXX

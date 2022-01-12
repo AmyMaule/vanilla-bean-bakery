@@ -370,6 +370,37 @@ li {
   transition: ease-in-out 0.3s;
   background-color: #e9d1d2d0;
 }
+
+.product-more-options-container {
+  display: flex;
+  justify-content: center;
+}
+
+.product-more-options {
+  position: absolute;
+  opacity: 0;
+  top: 270px;
+  width: 90%;
+  z-index: 5;
+  font-size: 1.9rem;
+  background-color: rgb(248, 248, 248);
+  border: 2px solid #e46c6c;
+  padding: 1.6rem;
+  border-radius: 100vmax;
+  -moz-transition: ease 0.5s;
+	-ms-transition: ease 0.5s;
+	-o-transition: ease 0.5s;
+	transition: ease 0.5s;
+}
+
+.product:hover .product-more-options {
+  opacity: 1;
+  transition: ease 0.5s;
+  -moz-transition: ease 0.5s;
+	-ms-transition: ease 0.5s;
+	-o-transition: ease 0.5s;
+	transition: ease 0.5s;
+}
 /* end of featured products */
 
 /* widget */
