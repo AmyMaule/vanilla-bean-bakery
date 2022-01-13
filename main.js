@@ -11,7 +11,6 @@ var client = contentful.createClient({
     accessToken: ACCESS_TOKEN
 });
 
-
 let basket = [];
 
 class Products {
@@ -172,3 +171,4 @@ if (sortingOptionsDOM) {
 // for cupcakes, can buy 1 or 6
 // for cakes, size options 6inch, 8inch, 10inch, except 2 tier cakes, where it's 6+8, 8+10, 10+12 inch
 // url: https://vanillabeanbakery.netlify.app/product.html?id=XXXXX
+// For description, write generic description and add key words to each one (4 layers of ${raspberry} sponge topped with a ${white chocolate} blah blah)
