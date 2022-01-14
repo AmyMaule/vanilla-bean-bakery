@@ -7,6 +7,7 @@
   <title>The Vanilla Bean Bakery</title>
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/product.css">
   <link rel="stylesheet" href="css/styles.css">
   <!-- GSAP for animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
@@ -99,6 +100,63 @@
 
     <div class="products-container align-products container"></div>
   </section>
+  <!-- end of products display -->
+
+  <!-- single product display -->
+  <section class="section single-product hide">
+    <div class="back-to-products">
+      <i class='bx bx-chevron-left back-chevron'></i>Back to products
+    </div>
+    <div class="single-product-details">
+      <div class="single-product-image">
+        <img src="images/cakes/classic-vanilla.jpg">
+      </div>
+      <div class="single-product-more-information">
+        <div class="single-product-title">Classic Vanilla Cake</div>
+        <div class="single-product-price">$34.95</div>
+        <div class="single-product-description">The {Classic Vanilla Cake} features 4 layers of {vanilla} sponge filled and decorated with {white chocolate} swiss meringue buttercream {and raspberry jam}. Finished off with a {white chocolate drip}, {gold leaf chocolates}, and raspberry {meringues}. Available in the following sizes: 6-inch, 8-inch and 10-inch.
+          </div>
+        <div class="single-product-options">
+
+          <div class="size-options">
+            <div class="size-select-container">
+              <h4 class="size-options-title">Size :</h4>
+              <select class="size-select">
+                <option>Small (6-inch)</option>
+                <option>Med (8-inch)</option>
+                <option>Large (10-inch)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="quantity-basket-container">
+            <div class="add-quantity-container">
+              <span>Quantity:</span>
+              <div class="qty-right">
+                <i class='bx bx-minus-circle'></i>
+                <input type="number" class="product-qty" value="1">
+                <i class='bx bx-plus-circle'></i>
+              </div>
+            </div>
+            <button class="add-to-basket">Add to basket</button>
+          </div>
+
+          <div class="portion-size-guide">
+            <h4 class="portion-size-guide-title">Portion Size Guide</h4>
+              <h6>6-inch cakes feed approx. 12-14 people</h6>
+              <h6>8-inch cakes feed approx. 22-24 people</h6>
+              <h6>10-inch cakes feed approx. 32-36 people</h6>
+            </h4>
+            <div class="discount-container">
+              <h4><a href="contact.html">Contact us</a> to discuss discounts for large orders.</h4>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end of single product display -->
   <!-- end of main content -->
 
   <!-- footer -->

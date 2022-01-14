@@ -97,18 +97,39 @@ class Display {
     let productsContainer = document.querySelector(".products-container") || "";
     if (productsContainer) productsContainer.innerHTML = productHTML;
     // productsContainer.insertAdjacentHTML('afterbegin', productHTML);
-    this.getMoreInfoBtns();
+    this.getSingleProduct(products);
   }
 
-  getMoreInfoBtns() {
+  // redirects to product.html?id=xxxx based on whichever product is clicked
+  getSingleProduct(products) {
     const productMoreInfo = Array.from(document.querySelectorAll(".product"));
     productMoreInfo.forEach(product => {
       // click anywhere in the product box to visit the product page for that item
       product.addEventListener("click", () => {
-      document.location.href = `product.html?id=${product.id}`;
+        let currentProduct = products.find(prod => {
+          return prod.productId === product.id;
+        });
+        this.displaySingleProduct(currentProduct, product);
       // https://vanillabeanbakery.netlify.app/product.html?id=XXXXX
       })
     })
+  }
+
+  displaySingleProduct(currentProduct, product) {
+    console.log(currentProduct);
+    // document.location.href = `products.html?id=${product.id}`;
+
+    // replaceState changes the URL without reloading the page (and thus without reloading the script)
+    window.history.replaceState(null, "", `products.html?productId=${product.id}`);
+    document.querySelector(".product-display-background").classList.add("hide");
+    document.querySelector(".products").classList.add("hide");
+    document.querySelector(".single-product").classList.remove("hide");
+
+    // scrollTo doesn't work as expected unless the if condition is in place
+    if (window.scrollY !== 0) {
+      window.scrollTo(0, 0);
+    }
+
   }
 }
 
@@ -159,13 +180,9 @@ if (sortingOptionsDOM) {
   })
 }
 
-
-
-
 // TODO
 // index page buttons - shop cakes take to products.html with cakes selected, same for shop cupcakes
 // have featured cakes and cupcakes shuffle based on day of the week?
-// products.html sorting options (low-high) etc
 // add 20% discount for chocolate cupcakes - require discount code?
 // responsive styles for products page
 // for cupcakes, can buy 1 or 6

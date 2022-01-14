@@ -509,7 +509,9 @@ li {
 }
 /* end of footer */
 
-
+.hide {
+  display: none;
+}
 
 /* media queries */
 @media only screen and (max-width: 1000px) {
