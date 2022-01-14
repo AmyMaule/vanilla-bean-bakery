@@ -7,7 +7,6 @@ let currentSort = 0;
 var client = contentful.createClient({
     // This is the space ID
     space: "b7l7de9fk9yy",
-    // This is the access token for this space
     accessToken: ACCESS_TOKEN
 });
 
@@ -28,7 +27,7 @@ class Products {
         const { title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers } = product.fields;
         const productId = product.sys.id;
         const productImage = product.fields.productImage.fields.file.url;
-        return {title, priceSmall, priceMed, priceLarge, productId, productImage, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers};
+        return {price: [priceSmall, priceMed, priceLarge], title, productId, productImage, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers};
       })
       return productInformation;
     }
@@ -45,10 +44,10 @@ class Display {
       products = products.sort((a, b) => a.productId > b.productId ? 1 : -1);
     // 2 is price, low to high
     } else if (currentSort === 2) {
-      products = products.sort((a, b) => a.priceSmall > b.priceSmall ? 1 : -1);
+      products = products.sort((a, b) => a.price[0] > b.price[0] ? 1 : -1);
     // 3 is price, high to low
     } else if (currentSort === 3) {
-      products = products.sort((a, b) => a.priceSmall < b.priceSmall ? 1 : -1);
+      products = products.sort((a, b) => a.price[0] < b.price[0] ? 1 : -1);
     // 4 is alphabetical a-z
     } else if (currentSort === 4) {
       products = products.sort((a, b) => a.title > b.title ? 1 : -1);
@@ -86,7 +85,7 @@ class Display {
         <h3 class="product-title">${product.title}</h3>
         <div class="price-container">
           <h4 class="price-from">${product.productType === "cake" ? "from" : ""}</h4>
-          <h4 class="price-amount">$${product.priceSmall}</h4>
+          <h4 class="price-amount">$${product.price[0]}</h4>
         </div>
       </div>
     </div>`
@@ -115,7 +114,6 @@ class Display {
   }
 
   displaySingleProduct(currentProduct, productDOM) {
-    console.log(currentProduct);
     // document.location.href = `products.html?id=${product.id}`;
 
     // replaceState changes the URL without reloading the page (and thus without reloading the script)
@@ -127,15 +125,53 @@ class Display {
     document.querySelector(".single-product").classList.remove("hide");
 
     // dynamically fill in the product details using the selected product data
+    document.querySelector(".size-options-title").innerHTML = currentProduct.productType === "cake" ? "Select size :" : "Box size: ";
     document.querySelector(".single-product-image").src = currentProduct.productImage;
     document.querySelector(".single-product-title").innerHTML = currentProduct.title;
-    document.querySelector(".single-product-price").innerHTML = `$${currentProduct.priceSmall}`;
+    const currentPriceDOM = document.querySelector(".single-product-price");
+    currentPriceDOM.innerHTML = `$${currentProduct.price[0]}`;
     document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: ${currentProduct.tiers === 1 ? "6-inch, 8-inch and 10-inch." : "6/8-inch, 8/10-inch and 10/12-inch tiers."}`;
+    currentProduct.productType === "cupcake"
+      ? document.querySelector(".portion-size-guide").classList.add("hide")
+      : document.querySelector(".portion-size-guide").classList.remove("hide");
 
     // scrollTo doesn't work as expected unless the if condition is in place
     if (window.scrollY !== 0) {
       window.scrollTo(0, 0);
     }
+
+    // change the price on the page based on the size selected
+    let sizeSelect = document.querySelector(".size-select");
+    sizeSelect.addEventListener("change", () => {
+      currentPriceDOM.innerHTML = `$${currentProduct.price[sizeSelect.selectedIndex]}`;
+    })
+
+    let currentQuantity = 1;
+    [...document.querySelectorAll(".qty-change")].forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (btn.classList.contains("minus")) {
+          if (currentQuantity > 1) {
+            currentQuantity--;
+          }
+        } else {
+          currentQuantity++;
+        }
+        document.querySelector(".product-qty").innerHTML = currentQuantity;
+      });
+    })
+
+    let addToBasketBtn = document.querySelector(".add-to-basket");
+    addToBasketBtn.addEventListener("click", () => {
+      // console.log(currentQuantity, currentProduct.price[sizeSelect.selectedIndex]);
+
+      addToBasketBtn.classList.add("added-to-basket");
+      addToBasketBtn.innerHTML = "Added to basket";
+
+      setTimeout(() => {
+        addToBasketBtn.classList.remove("added-to-basket");
+        addToBasketBtn.innerHTML = "Add to basket";
+      }, 1500)
+    })
 
   }
 }
@@ -195,3 +231,5 @@ if (sortingOptionsDOM) {
 // for cupcakes, can buy 1 or 6
 // url: https://vanillabeanbakery.netlify.app/product.html?id=XXXXX
 // For description, write generic description and add key words to each one (4 layers of ${raspberry} sponge topped with a ${white chocolate} blah blah)
+// responsive design for single product page
+// check responsive styles for products.html

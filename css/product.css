@@ -1,3 +1,7 @@
+.single-product {
+  margin-bottom: 2rem;
+}
+
 .single-product-details {
   display: flex;
 }
@@ -16,20 +20,20 @@
 }
 
 .single-product-image-container {
-  max-width: 60%;
+  max-width: 55%;
   padding: 0 5rem;
   margin-top: 2.5rem;
   margin-bottom: 5rem;
 }
 
 .single-product-more-information {
-  width: 40%;
+  width: 45%;
   padding-right: 5rem;
   margin-top: 2.5rem;
 }
 
 .single-product-title {
-  font-size: 4rem;
+  font-size: 3.8rem;
   text-align: center;
 }
 
@@ -43,8 +47,8 @@
 .single-product-description {
   font-size: 1.8rem;
   font-family: 'Raleway', sans-serif;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .size-options-title {
@@ -61,7 +65,7 @@
   font-size: 1.8rem;
   padding: 0.8rem;
   margin: 1rem 0;
-  width: 70%;
+  width: 60%;
   font-family: 'Raleway', sans-serif;
   cursor: pointer;
   border: 1px solid #e46c6c;
@@ -110,29 +114,13 @@
 
 .product-qty {
   font-size: 2rem;
-  cursor: pointer;
   width: 50px;
   max-width: 50px;
   text-align: center;
   font-family: 'Raleway', sans-serif;
   padding: 0.3rem 0;
   margin: 0 0.5rem;
-  outline: none;
-  border: 1px solid #e46c6c;
   border-radius: 3px;
-}
-
-.product-qty:focus {
-  background-color: #e9d1d2;
-}
-
-.product-qty::-webkit-outer-spin-button,
-.product-qty::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
 }
 
 .add-to-basket {
@@ -161,13 +149,16 @@ input[type=number] {
 	transition: ease 0.5s;
 }
 
-.add-to-basket:active, .added-to-basket {
+.added-to-basket {
   background-color: #e46c6c;
-  /* also add "Added to basket" in button innerText, then change back */
+  -moz-transition: ease 0.3s;
+	-ms-transition: ease 0.3s;
+	-o-transition: ease 0.3s;
+	transition: ease 0.3s;
 }
 
 .portion-size-guide-title {
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   font-size: 1.9rem;
   text-decoration: underline;
   margin-bottom: 0.5rem;
