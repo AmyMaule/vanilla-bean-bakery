@@ -15,7 +15,7 @@
   color: #e46c6c;
 }
 
-.single-product-image {
+.single-product-image-container {
   max-width: 60%;
   padding: 0 5rem;
   margin-top: 2.5rem;
@@ -64,6 +64,8 @@
   width: 70%;
   font-family: 'Raleway', sans-serif;
   cursor: pointer;
+  border: 1px solid #e46c6c;
+  border-radius: 3px;
 }
 
 .quantity-basket-container {

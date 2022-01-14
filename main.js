@@ -25,12 +25,11 @@ class Products {
       .catch(err => console.log(err));
 
       let productInformation = products.map(product => {
-        const { title, priceSmall, priceMed, priceLarge, productType } = product.fields;
+        const { title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers } = product.fields;
         const productId = product.sys.id;
         const productImage = product.fields.productImage.fields.file.url;
-        return {title, priceSmall, priceMed, priceLarge, productId, productImage, productType};
+        return {title, priceSmall, priceMed, priceLarge, productId, productImage, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers};
       })
-
       return productInformation;
     }
     catch(err) {
@@ -115,15 +114,23 @@ class Display {
     })
   }
 
-  displaySingleProduct(currentProduct, product) {
+  displaySingleProduct(currentProduct, productDOM) {
     console.log(currentProduct);
     // document.location.href = `products.html?id=${product.id}`;
 
     // replaceState changes the URL without reloading the page (and thus without reloading the script)
-    window.history.replaceState(null, "", `products.html?productId=${product.id}`);
+    window.history.replaceState(null, "", `products.html?productId=${productDOM.id}`);
+
+    // hide the current products, and show the selected product
     document.querySelector(".product-display-background").classList.add("hide");
     document.querySelector(".products").classList.add("hide");
     document.querySelector(".single-product").classList.remove("hide");
+
+    // dynamically fill in the product details using the selected product data
+    document.querySelector(".single-product-image").src = currentProduct.productImage;
+    document.querySelector(".single-product-title").innerHTML = currentProduct.title;
+    document.querySelector(".single-product-price").innerHTML = `$${currentProduct.priceSmall}`;
+    document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: ${currentProduct.tiers === 1 ? "6-inch, 8-inch and 10-inch." : "6/8-inch, 8/10-inch and 10/12-inch tiers."}`;
 
     // scrollTo doesn't work as expected unless the if condition is in place
     if (window.scrollY !== 0) {
@@ -186,6 +193,5 @@ if (sortingOptionsDOM) {
 // add 20% discount for chocolate cupcakes - require discount code?
 // responsive styles for products page
 // for cupcakes, can buy 1 or 6
-// for cakes, size options 6inch, 8inch, 10inch, except 2 tier cakes, where it's 6+8, 8+10, 10+12 inch
 // url: https://vanillabeanbakery.netlify.app/product.html?id=XXXXX
 // For description, write generic description and add key words to each one (4 layers of ${raspberry} sponge topped with a ${white chocolate} blah blah)
