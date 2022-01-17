@@ -8,7 +8,6 @@
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/products.css">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/product.css">
   <!-- GSAP for animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
   <!-- box icons for icons -->
@@ -51,7 +50,10 @@
           <li class="menu-item">
             <a href="contact.html" class="menu-item-link scroll-link">Contact</a>
           </li>
-          <li class="menu-item">
+          <div class="num-basket-items-container">
+            <div class="num-basket-items">29</div>
+          </div>
+          <li class="menu-item menu-item-last">
             <a href="basket.html" class="menu-item-link icon">
               <i class="bx bx-shopping-bag shopping-basket-icon"></i>
             </a>
@@ -82,9 +84,11 @@
   <section class="section products">
     <div class="category-select-title-container">
       <h1 class="category-select-title">Show me:</h1>
-      <h6 class="category-select select-cake">Cakes</h6>
-      <h6 class="category-select select-cupcake">Cupcakes</h6>
-      <h6 class="category-select select-all">Everything</h6>
+      <div class="category-select-options">
+        <h6 class="category-select select-cake">Cakes</h6>
+        <h6 class="category-select select-cupcake">Cupcakes</h6>
+        <h6 class="category-select select-all">Everything</h6>
+      </div>
     </div>
 
     <div class="sorting-options-container">

@@ -49,10 +49,17 @@
   padding: 1rem;
 }
 
+.category-select-options {
+  display: flex;
+  flex-direction: row;
+}
+
 .category-select {
   font-size: 3rem;
   margin-left: 4rem;
   border-radius: 100vmax;
+  min-width: 120px;
+  text-align: center;
   background-color: #f6f2f1;
   padding: 1rem;
   cursor: pointer;
@@ -154,6 +161,7 @@ select {
   padding: 1rem;
   outline: none;
   border: none;
+  width: 100%;
 }
 
 .sorting-options * {
@@ -363,7 +371,7 @@ select {
     font-size: 9rem;
   }
 
-  .category-select-title-container > * {
+  .category-select-title, .category-select {
     font-size: 2.8rem;
   }
 }
@@ -378,17 +386,43 @@ select {
   }
 }
 
-@media only screen and (max-width: 630px) {
+@media only screen and (max-width: 670px) {
   .product-display-background::before {
     background-image: url("../images/about/product-banner-mobile.jpg");
     background-position: top;
   }
 
   .display-banner-text {
-    font-size: 7rem;
+    text-align: center;
+  }
+
+  .category-select-title-container {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .category-select-options {
+    justify-content: center;
+  }
+
+  .category-select {
+    min-width: 100px;
+    margin: 0 2rem;
   }
 
   .category-select-title-container > * {
+    font-size: 2.2rem;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .display-banner-text {
+    font-size: 9rem;
+    margin: 0 3rem;
+  }
+
+  .category-select-title, .category-select {
     font-size: 2.3rem;
   }
 
@@ -397,17 +431,42 @@ select {
   }
 }
 
-@media only screen and (max-width: 570px) {
+@media only screen and (max-width: 500px) {
   .display-banner-text {
-    font-size: 9rem;
-    text-align: center;
-  }
-
-  .category-select-title-container > * {
-    font-size: 2.2rem;
+    font-size: 7.5rem;
   }
 
   .category-select {
-    margin-left: 2.8rem;
+    margin: 0 1.2rem;
+    min-width: 70px;
+  }
+
+  .category-select-title-container {
+    margin-bottom: 2rem;
+  }
+
+  .sorting-options-container {
+    margin: 2rem auto;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .category-select {
+    min-width: 60px;
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .display-banner-text {
+    font-size: 6.1rem;
+  }
+
+  .product-display-background {
+    height: 240px;
+  }
+
+  .category-select {
+    margin: 0 0.4rem;
   }
 }

@@ -94,7 +94,6 @@ class Display {
     // if the current page is not products.html, productsContainer will be undefined
     let productsContainer = document.querySelector(".products-container") || "";
     if (productsContainer) productsContainer.innerHTML = productHTML;
-    // productsContainer.insertAdjacentHTML('afterbegin', productHTML);
     this.getSingleProduct(products);
   }
 
@@ -114,8 +113,6 @@ class Display {
   }
 
   displaySingleProduct(currentProduct, productDOM) {
-    // document.location.href = `products.html?id=${product.id}`;
-
     // replaceState changes the URL without reloading the page (and thus without reloading the script)
     window.history.replaceState(null, "", `products.html?productId=${productDOM.id}`);
 
@@ -174,10 +171,17 @@ class Display {
     })
 
   }
+
+  addToBagBtn() {
+
+  }
 }
 
-
-class Storage {}
+class Storage {
+  static saveBasket(products) {
+    localStorage.setItem("products", JSON.stringify(products))
+  }
+}
 
 // create instance of DisplayProducts and Products once the page loads
 // document.addEventListener("DOMContentLoaded", () => {
@@ -186,7 +190,12 @@ class Storage {}
 
   // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
   products.getProducts()
-  .then(data => display.displayProducts(data));
+  .then(data => {
+    display.displayProducts(data);
+    // saveBasket is a static method, so don't need to create an instance
+    Storage.saveBasket(data);
+  })
+  ;
 // })
 
 
@@ -227,9 +236,5 @@ if (sortingOptionsDOM) {
 // index page buttons - shop cakes take to products.html with cakes selected, same for shop cupcakes
 // have featured cakes and cupcakes shuffle based on day of the week?
 // add 20% discount for chocolate cupcakes - require discount code?
-// responsive styles for products page
+// responsive styles for single product page
 // for cupcakes, can buy 1 or 6
-// url: https://vanillabeanbakery.netlify.app/product.html?id=XXXXX
-// For description, write generic description and add key words to each one (4 layers of ${raspberry} sponge topped with a ${white chocolate} blah blah)
-// responsive design for single product page
-// check responsive styles for products.html

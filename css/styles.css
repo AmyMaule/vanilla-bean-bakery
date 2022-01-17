@@ -106,13 +106,32 @@ li {
   padding: 0 1rem;
 }
 
-.menu-item:hover {
+.menu-item:not(.menu-item-last):hover {
   transform: scale(1.2);
   transition: ease 0.3s;
   -moz-transition: ease 0.3s;
 	-ms-transition: ease 0.3s;
 	-o-transition: ease 0.3s;
 	transition: ease 0.3s;
+}
+
+.menu-item-last:hover {
+  animation-name: basketHover;
+  animation-duration: 0.5s;
+}
+
+/* has the basket hover left and right instead of scaling */
+@keyframes basketHover {
+  0% {   transform: translateX(0%);  }
+  25% {  transform: translateX(-3%);  }
+  50% {   transform: translateX(0%);  }
+  75% {   transform: translateX(3%);  }
+  100% {   transform: translateX(0%);  }
+}
+
+.num-basket-items-container:hover + .menu-item-last {
+  animation-name: basketHover;
+  animation-duration: 0.5s;
 }
 
 .menu-container {
@@ -126,6 +145,26 @@ li {
 
 .shopping-basket-icon {
   font-size: 3rem;
+}
+
+.num-basket-items-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f09494;
+  border-radius: 4px;
+  margin-left: 20px;
+  margin-right: -45px;
+  margin-bottom: 8px;
+  width: 21px;
+  height: 17px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.num-basket-items {
+  font-family: Saphira;
+  font-size: 1.4rem;
 }
 
 .mobile-navbar, .hamburger-menu, .mobile-basket-icon {
