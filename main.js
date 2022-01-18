@@ -3,8 +3,11 @@ import ACCESS_TOKEN from "./apikey.js";
 let onlyCakes = false;
 let onlyCupcakes = false;
 let currentSort = 0;
+const numBasketItemsDOM = document.querySelector(".num-basket-items");
+// initialise number of items in the basket to 0
+let numBasketItems = 0;
 
-var client = contentful.createClient({
+let client = contentful.createClient({
     // This is the space ID
     space: "b7l7de9fk9yy",
     accessToken: ACCESS_TOKEN
@@ -94,6 +97,18 @@ class Display {
     // if the current page is not products.html, productsContainer will be undefined
     let productsContainer = document.querySelector(".products-container") || "";
     if (productsContainer) productsContainer.innerHTML = productHTML;
+
+    // add all products to the basket with zero quantity
+    // products.forEach(product => {
+    //   basket.push({
+    //     id: product.productId,
+    //     title: product.title,
+    //     0: 0,
+    //     1: 0,
+    //     2: 0
+    //   })
+    // })
+
     this.getSingleProduct(products);
   }
 
@@ -157,8 +172,31 @@ class Display {
       });
     })
 
+    // add a product to the basket
     let addToBasketBtn = document.querySelector(".add-to-basket");
     addToBasketBtn.addEventListener("click", () => {
+      // check if the item is already in the basket
+      let inBasket = basket.find(item => item.id === currentProduct.productId);
+      if (inBasket) {
+        // if it is, increase the current size selected (small is 0, med is 1, large is 2) by the chosen quantity
+        inBasket.quantity[sizeSelect.selectedIndex] += currentQuantity;
+      } else {
+        // otherwise add a blank item to the basket, and then increase the current size selected by the chosen quantity
+        basket.push({
+          id: currentProduct.productId,
+          title: currentProduct.title,
+          quantity: [0, 0, 0]
+        })
+        basket[basket.length-1].quantity[sizeSelect.selectedIndex] += currentQuantity;
+      }
+      numBasketItems += currentQuantity;
+      numBasketItemsDOM.innerHTML = numBasketItems;
+
+      Storage.saveBasket(basket);
+      // let itemInbasket = Storage.getItem(currentProduct.productId)
+      // console.log(itemInbasket);
+
+      console.log(basket);
       // console.log(currentQuantity, currentProduct.price[sizeSelect.selectedIndex]);
 
       addToBasketBtn.classList.add("added-to-basket");
@@ -168,18 +206,22 @@ class Display {
         addToBasketBtn.classList.remove("added-to-basket");
         addToBasketBtn.innerHTML = "Add to basket";
       }, 1500)
-    })
-
-  }
-
-  addToBagBtn() {
-
+    });
   }
 }
 
 class Storage {
-  static saveBasket(products) {
+  static saveProducts(products) {
     localStorage.setItem("products", JSON.stringify(products))
+  }
+
+  static getItem(id) {
+    let products = JSON.parse(localStorage.getItem("products"))
+    return products.find(product => product.productId === id)
+  }
+
+  static saveBasket(basket) {
+    localStorage.setItem("basket", JSON.stringify(basket));
   }
 }
 
@@ -193,7 +235,7 @@ class Storage {
   .then(data => {
     display.displayProducts(data);
     // saveBasket is a static method, so don't need to create an instance
-    Storage.saveBasket(data);
+    // Storage.saveBasket(data);
   })
   ;
 // })
