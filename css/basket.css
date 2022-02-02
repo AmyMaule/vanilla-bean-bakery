@@ -61,7 +61,7 @@
 }
 
 .backet-item-remove-btn:hover {
-  transform: scale(1.15);
+  transform: scale(1.2);
   transition: ease 0.3s;
   -moz-transition: ease 0.3s;
 	-ms-transition: ease 0.3s;
@@ -84,6 +84,70 @@
 }
 
 .basket-item-size, .basket-item-price, .item-qty, .basket-item-subtotal {
-  font-size: 2rem;
+  font-size: 1.9rem;
   font-weight: normal;
+}
+
+.basket-subtotal-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-right: 3.5rem;
+  margin-top: 4rem;
+  row-gap: 5px;
+}
+
+.basket-subtotal-container > * {
+  font-size: 2.2rem;
+  height: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.basket-order-total, .basket-delivery, .basket-subtotal, .basket-giftwrapping {
+  grid-column: 3/4;
+  padding-left: 1rem;
+  padding-top: 13px;
+}
+
+.basket-delivery, .basket-delivery-value {
+  border-bottom: 2px solid #e9d1d2;
+  width: 100%;
+}
+
+.basket-order-total-value, .basket-delivery-value, .basket-subtotal-value, .basket-giftwrapping-value {
+  grid-column: 4/5;
+  justify-self: end;
+  text-align: end;
+  padding-right: 1rem;
+  padding-top: 13px;
+}
+
+.basket-order-total, .basket-order-total-value, .basket-subtotal, .basket-subtotal-value {
+  width: 100%;
+  /* height: 50px; */
+  font-size: 2.5rem;
+  background-color: #e9d1d2;
+}
+
+.basket-giftwrapping-value {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.gift-wrapping-selected {
+  color: #e46c6c;
+  border-radius: 50%;
+  border: 1px solid #e9d1d2;
+}
+
+.basket-giftwrapping-value * {
+  cursor: pointer;
+  padding: 0.7rem;
+}
+
+.empty-basket {
+  text-align: center;
+  font-size: 4.5rem;
+  margin: 7rem 0 12rem 0;
 }

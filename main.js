@@ -236,22 +236,20 @@ class Storage {
 
 class Basket {
   static displayBasket() {
-    // console.log(...basket);
-
+    let basketSubtotal = 0;
     const basketContainer = document.querySelector(".basket-container");
     let basketHTML = "";
     basket.forEach(item => {
       item.quantity.forEach((qty, i) => {
         if (qty !== 0) {
-          console.log(item, i);
-
+          basketSubtotal += Number(item.price[i] * qty);
           basketHTML += `<div class="basket-item">
           <div class="grid-image">
             <img src="${item.productImage}" class="basket-item-image" alt="">
           </div>
           <div class="grid-product basket-item-title-container">
             <h6 class="basket-item-title">${item.title}</h6>
-            <a class="backet-item-remove-btn" href="#">Remove</a>
+            <div class="backet-item-remove-btn">Remove</div>
           </div>
           <div>
             <h6 class="basket-item-size">${item.productType === "cake"
@@ -280,33 +278,27 @@ class Basket {
         }
       })
     });
+    if (basketHTML === "") {
+      basketHTML += `<div class="empty-basket">Your basket is empty</div>`
+    }
+    basketContainer.innerHTML = basketHTML;
 
-     `<div class="basket-item">
-    <div class="grid-image">
-      <img src="./images/cakes/cherry-bakewell.jpg" class="basket-item-image" alt="">
-    </div>
-    <div class="grid-product basket-item-title-container">
-      <h6 class="basket-item-title">Cherry Bakewell Cake</h6>
-      <a class="backet-item-remove-btn" href="#">Remove</a>
-    </div>
-    <div>
-      <h6 class="basket-item-size">Small (6-inch)</h6>
-    </div>
-    <div>
-      <h6 class="basket-item-price">$44.95</h6>
-    </div>
-    <div class="basket-item-qty">
-      <i class='bx bx-minus-circle'></i>
-      <div class="item-qty">1</div>
-      <i class='bx bx-plus-circle'></i>
-    </div>
-    <div>
-      <h6 class="basket-item-subtotal">$44.95</h6>
-    </div>
-  </div>`;
+    // update the order total, the delivery (free if order total > $50) and the subtotal
+    document.querySelector(".basket-order-total-value").innerHTML = "$" + basketSubtotal.toFixed(2);
+    document.querySelector(".basket-delivery-value").innerHTML = basketSubtotal > 50 ? "FREE" : "$14.95";
+    document.querySelector(".basket-subtotal-value").innerHTML = basketSubtotal > 50 ? "$" + basketSubtotal.toFixed(2) : "$" + (basketSubtotal + 14.95).toFixed(2);
 
-  basketContainer.innerHTML = basketHTML;
+    // update giftwrapping status
+    document.querySelector(".basket-giftwrapping-yes").addEventListener("click", () => {
+      document.querySelector(".basket-giftwrapping-yes").classList.add("gift-wrapping-selected");
+      document.querySelector(".basket-giftwrapping-no").classList.remove("gift-wrapping-selected");
+    });
+    document.querySelector(".basket-giftwrapping-no").addEventListener("click", () => {
+      document.querySelector(".basket-giftwrapping-no").classList.add("gift-wrapping-selected");
+      document.querySelector(".basket-giftwrapping-yes").classList.remove("gift-wrapping-selected");
+    });
   }
+
 }
 
 // create instance of DisplayProducts and Products as soon as the page loads
@@ -316,7 +308,6 @@ const products = new Products();
 // getBasket is a static method so no need to create an instance
 basket = Storage.getBasket();
 numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
-console.log(numBasketItemsDOM.innerHTML);
 // if .basket exists, basket.html is the current page, so display the current basket
 if (document.querySelector(".basket")) {
   Basket.displayBasket();
