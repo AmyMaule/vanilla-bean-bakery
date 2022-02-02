@@ -103,18 +103,18 @@
   margin-bottom: auto;
 }
 
-.basket-order-total, .basket-delivery, .basket-subtotal, .basket-giftwrapping {
+.basket-order-total, .basket-delivery, .basket-subtotal, .basket-giftwrapping, .basket-discount {
   grid-column: 3/4;
   padding-left: 1rem;
   padding-top: 13px;
 }
 
-.basket-delivery, .basket-delivery-value {
+.basket-delivery, .basket-delivery-value, .basket-discount, .basket-discount-value {
   border-bottom: 2px solid #e9d1d2;
   width: 100%;
 }
 
-.basket-order-total-value, .basket-delivery-value, .basket-subtotal-value, .basket-giftwrapping-value {
+.basket-order-total-value, .basket-delivery-value, .basket-subtotal-value, .basket-giftwrapping-value, .basket-discount-value {
   grid-column: 4/5;
   justify-self: end;
   text-align: end;
@@ -133,6 +133,15 @@
   display: flex;
   align-items: center;
   padding: 0;
+}
+
+.basket-discount {
+  font-size: 1.7rem;
+  padding-top: 2px;
+}
+
+.basket-discount-value {
+  color: #e46c6c;
 }
 
 .gift-wrapping-selected {

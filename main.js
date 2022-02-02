@@ -26,10 +26,10 @@ class Products {
       .catch(err => console.log(err));
 
       const productInformation = products.map(product => {
-        const { title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers } = product.fields;
+        const { discount, title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers } = product.fields;
         const productId = product.sys.id;
         const productImage = product.fields.productImage.fields.file.url;
-        return {price: [priceSmall, priceMed, priceLarge], title, productId, productImage, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers};
+        return {price: [priceSmall, priceMed, priceLarge], discount, title, productId, productImage, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers};
       })
       return productInformation;
     }
@@ -129,7 +129,12 @@ class Display {
     document.querySelector(".single-product-title").innerHTML = currentProduct.title;
     const currentPriceDOM = document.querySelector(".single-product-price");
     currentPriceDOM.innerHTML = `$${currentProduct.price[0]}`;
-    document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: ${currentProduct.tiers === 1 ? "6-inch, 8-inch and 10-inch." : "6/8-inch, 8/10-inch and 10/12-inch tiers."}`;
+    if (currentProduct.productType === "cake") {
+      document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: ${currentProduct.tiers === 1 ? "6-inch, 8-inch and 10-inch." : "6/8-inch, 8/10-inch and 10/12-inch tiers."}`;
+    } else {
+      document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} is made up of a ${currentProduct.flavor} flavored sponge, filled and decorated with ${currentProduct.icingFlavor}. Finished off with ${currentProduct.topping1}, and a choice of other toppings. Available as individual cupcakes or as a box of 6.`;
+    }
+
     currentProduct.productType === "cupcake"
       ? document.querySelector(".portion-size-guide").classList.add("hide")
       : document.querySelector(".portion-size-guide").classList.remove("hide");
@@ -153,7 +158,6 @@ class Display {
       ? document.querySelector(".size-select-cupcake")
       : document.querySelector(".size-select-cake");
     sizeSelect.addEventListener("change", () => {
-      console.log("changing");
       currentPriceDOM.innerHTML = `$${currentProduct.price[sizeSelect.selectedIndex]}`;
     })
 
@@ -183,6 +187,7 @@ class Display {
         basket.push({
           id: currentProduct.productId,
           title: currentProduct.title,
+          discount: currentProduct.discount,
           quantity: [0, 0, 0],
           productType: currentProduct.productType,
           productImage: currentProduct.productImage,
@@ -247,12 +252,19 @@ class Storage {
 class Basket {
   static displayBasket() {
     let basketSubtotal = 0;
+    let discount = 0;
     const basketContainer = document.querySelector(".basket-container");
     let basketHTML = "";
     basket.forEach(item => {
       item.quantity.forEach((qty, i) => {
         if (qty !== 0) {
-          basketSubtotal += Number(item.price[i] * qty);
+          if (item.discount === true) {
+            basketSubtotal += 0.8 * Number(item.price[i] * qty);
+            discount += 0.2 * Number(item.price[i] * qty);
+          } else {
+            basketSubtotal += Number(item.price[i] * qty);
+          }
+
           basketHTML += `<div class="basket-item">
           <div class="grid-image">
             <img src="${item.productImage}" class="basket-item-image" alt="">
@@ -296,7 +308,8 @@ class Basket {
     // update the order total, the delivery (free if order total > $50) and the subtotal
     document.querySelector(".basket-order-total-value").innerHTML = "$" + basketSubtotal.toFixed(2);
     document.querySelector(".basket-delivery-value").innerHTML = basketSubtotal > 50 ? "FREE" : "$14.95";
-    document.querySelector(".basket-subtotal-value").innerHTML = basketSubtotal > 50 ? "$" + basketSubtotal.toFixed(2) : "$" + (basketSubtotal + 14.95).toFixed(2);
+    document.querySelector(".basket-discount-value").innerHTML = "-$" + discount.toFixed(2);
+    document.querySelector(".basket-subtotal-value").innerHTML = basketSubtotal > 50 ? "$" + (basketSubtotal - discount).toFixed(2) : "$" + (basketSubtotal - discount + 14.95).toFixed(2);
 
     // update giftwrapping status
     document.querySelector(".basket-giftwrapping-yes").addEventListener("click", () => {
@@ -394,8 +407,4 @@ if (sortingOptionsDOM) {
 }
 
 // TODO
-// index page buttons - shop cakes take to products.html with cakes selected, same for shop cupcakes
-// have featured cakes and cupcakes shuffle based on day of the week?
-// add 20% discount for chocolate cupcakes - require discount code?
 // responsive styles for single product page
-// cupcake description on product.html
