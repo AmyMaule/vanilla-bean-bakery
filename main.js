@@ -134,14 +134,26 @@ class Display {
       ? document.querySelector(".portion-size-guide").classList.add("hide")
       : document.querySelector(".portion-size-guide").classList.remove("hide");
 
-    // scrollTo doesn't work as expected unless the if condition is in place
-    if (window.scrollY !== 0) {
+    // scrollTo only works intermittently without the setTimeout
+    setTimeout(function() {
       window.scrollTo(0, 0);
-    }
+    }, 30);
 
     // change the price on the page based on the size selected
-    const sizeSelect = document.querySelector(".size-select");
+    if (currentProduct.productType === "cake") {
+      document.querySelector(".size-select-cake").classList.remove("hide");
+      document.querySelector(".size-select-cupcake").classList.add("hide");
+    } else {
+      document.querySelector(".size-select-cake").classList.add("hide");
+      document.querySelector(".size-select-cupcake").classList.remove("hide");
+    }
+
+    // change the display price each time the user changes the cake/cupcake size
+    const sizeSelect = document.querySelector(".size-select-cake").classList.contains("hide")
+      ? document.querySelector(".size-select-cupcake")
+      : document.querySelector(".size-select-cake");
     sizeSelect.addEventListener("change", () => {
+      console.log("changing");
       currentPriceDOM.innerHTML = `$${currentProduct.price[sizeSelect.selectedIndex]}`;
     })
 
@@ -158,7 +170,6 @@ class Display {
         document.querySelector(".product-qty").innerHTML = currentQuantity;
       });
     })
-
     // add a product to the basket
     const addToBasketBtn = document.querySelector(".add-to-basket");
     addToBasketBtn.addEventListener("click", () => {
@@ -168,7 +179,6 @@ class Display {
         // if it is, increase the current size selected (small is 0, med is 1, large is 2) by the chosen quantity
         inBasket.quantity[sizeSelect.selectedIndex] += currentQuantity;
       } else {
-        console.log(currentProduct);
         // otherwise add a blank item to the basket, and then increase the current size selected by the chosen quantity
         basket.push({
           id: currentProduct.productId,
@@ -176,7 +186,7 @@ class Display {
           quantity: [0, 0, 0],
           productType: currentProduct.productType,
           productImage: currentProduct.productImage,
-          price: currentProduct.price
+          price: currentProduct.price,
         })
         basket[basket.length-1].quantity[sizeSelect.selectedIndex] += currentQuantity;
       }
@@ -249,7 +259,7 @@ class Basket {
           </div>
           <div class="grid-product basket-item-title-container">
             <h6 class="basket-item-title">${item.title}</h6>
-            <div class="backet-item-remove-btn">Remove</div>
+            <div class="basket-item-remove-btn" data-id="${item.id}" data-price="${item.price[i]}">Remove</div>
           </div>
           <div>
             <h6 class="basket-item-size">${item.productType === "cake"
@@ -260,16 +270,16 @@ class Basket {
                                                 : "Large (10-inch)"
                                             : i === 0
                                               ? "1 cupcake"
-                                              : "Box of 6 cupcakes"
+                                              : "Box of 6"
                                           }</h6>
           </div>
           <div>
             <h6 class="basket-item-price">${item.price[i]}</h6>
           </div>
           <div class="basket-item-qty">
-            <i class='bx bx-minus-circle'></i>
+            <i class='bx bx-minus-circle basket-qty-minus' data-id="${item.id}" data-price="${item.price[i]}"></i>
             <div class="item-qty">${qty}</div>
-            <i class='bx bx-plus-circle'></i>
+            <i class='bx bx-plus-circle basket-qty-plus' data-id="${item.id}" data-price="${item.price[i]}"></i>
           </div>
           <div>
             <h6 class="basket-item-subtotal">$${(item.price[i] * qty).toFixed(2)}</h6>
@@ -297,8 +307,39 @@ class Basket {
       document.querySelector(".basket-giftwrapping-no").classList.add("gift-wrapping-selected");
       document.querySelector(".basket-giftwrapping-yes").classList.remove("gift-wrapping-selected");
     });
+
+    let qtyChange = [...document.querySelectorAll(".basket-qty-minus, .basket-qty-plus, .basket-item-remove-btn")];
+
+    qtyChange.forEach(qty => qty.addEventListener("click", this.updateQty));
   }
 
+  static updateQty(e) {
+    // direction is "empty" for the remove button, "plus" or "minus" for the quantity change buttons
+    let direction = e.target.classList.contains("basket-item-remove-btn")
+      ? "empty"
+      : e.target.classList.contains("basket-qty-minus")
+        ? "minus"
+        : "plus";
+
+    basket.filter(item => {
+      if (item.id === e.target.dataset.id) {
+        let index = item.price.indexOf(Number(e.target.dataset.price));
+        if (direction === "plus") {
+          item.quantity[index]++;
+        } else if (direction === "minus") {
+          item.quantity[index]--;
+        } else {
+          // to remove items, set the quantity of the current size option to 0 and the foreEach in this.displayBasket will remove it from the basket
+          item.quantity[index] = 0;
+        }
+      }
+      Storage.saveBasket(basket);
+      numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+      // reload the page to reflect changes instead of making lots of small UI updates
+      location.reload();
+    })
+
+  }
 }
 
 // create instance of DisplayProducts and Products as soon as the page loads
@@ -315,7 +356,6 @@ if (document.querySelector(".basket")) {
   // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
   products.getProducts()
   .then(data => {
-    console.log(basket);
     display.displayProducts(data);
   });
 }
@@ -358,4 +398,4 @@ if (sortingOptionsDOM) {
 // have featured cakes and cupcakes shuffle based on day of the week?
 // add 20% discount for chocolate cupcakes - require discount code?
 // responsive styles for single product page
-// for cupcakes, can buy 1 or 6
+// cupcake description on product.html

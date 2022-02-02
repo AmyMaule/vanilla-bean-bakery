@@ -49,7 +49,7 @@
   font-weight: normal;
 }
 
-.backet-item-remove-btn {
+.basket-item-remove-btn {
   font-size: 1.5rem;
   color: #e46c6c;
   cursor: pointer;
@@ -60,7 +60,7 @@
 	transition: ease 0.3s;
 }
 
-.backet-item-remove-btn:hover {
+.basket-item-remove-btn:hover {
   transform: scale(1.2);
   transition: ease 0.3s;
   -moz-transition: ease 0.3s;
