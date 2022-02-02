@@ -7,12 +7,13 @@ const numBasketItemsDOM = document.querySelector(".num-basket-items");
 // initialise number of items in the basket to 0
 let numBasketItems = 0;
 
-let client = contentful.createClient({
-    // This is the space ID
+const client = contentful.createClient({
+    // This is the space ID and access token for the contentful data
     space: "b7l7de9fk9yy",
     accessToken: ACCESS_TOKEN
 });
 
+// basket is initialised to empty array, and overwritten if local storage already contains basket items
 let basket = [];
 
 class Products {
@@ -26,7 +27,7 @@ class Products {
       .then(data => products = data.items)
       .catch(err => console.log(err));
 
-      let productInformation = products.map(product => {
+      const productInformation = products.map(product => {
         const { title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers } = product.fields;
         const productId = product.sys.id;
         const productImage = product.fields.productImage.fields.file.url;
@@ -98,17 +99,6 @@ class Display {
     let productsContainer = document.querySelector(".products-container") || "";
     if (productsContainer) productsContainer.innerHTML = productHTML;
 
-    // add all products to the basket with zero quantity
-    // products.forEach(product => {
-    //   basket.push({
-    //     id: product.productId,
-    //     title: product.title,
-    //     0: 0,
-    //     1: 0,
-    //     2: 0
-    //   })
-    // })
-
     this.getSingleProduct(products);
   }
 
@@ -118,7 +108,7 @@ class Display {
     productMoreInfo.forEach(product => {
       // click anywhere in the product box to visit the product page for that item
       product.addEventListener("click", () => {
-        let currentProduct = products.find(prod => {
+        const currentProduct = products.find(prod => {
           return prod.productId === product.id;
         });
         this.displaySingleProduct(currentProduct, product);
@@ -153,7 +143,7 @@ class Display {
     }
 
     // change the price on the page based on the size selected
-    let sizeSelect = document.querySelector(".size-select");
+    const sizeSelect = document.querySelector(".size-select");
     sizeSelect.addEventListener("change", () => {
       currentPriceDOM.innerHTML = `$${currentProduct.price[sizeSelect.selectedIndex]}`;
     })
@@ -173,14 +163,16 @@ class Display {
     })
 
     // add a product to the basket
-    let addToBasketBtn = document.querySelector(".add-to-basket");
+    const addToBasketBtn = document.querySelector(".add-to-basket");
     addToBasketBtn.addEventListener("click", () => {
       // check if the item is already in the basket
-      let inBasket = basket.find(item => item.id === currentProduct.productId);
+      const inBasket = basket.find(item => item.id === currentProduct.productId);
       if (inBasket) {
+        console.log("this is in the basket already");
         // if it is, increase the current size selected (small is 0, med is 1, large is 2) by the chosen quantity
         inBasket.quantity[sizeSelect.selectedIndex] += currentQuantity;
       } else {
+        console.log("this is not in the basket");
         // otherwise add a blank item to the basket, and then increase the current size selected by the chosen quantity
         basket.push({
           id: currentProduct.productId,
@@ -193,10 +185,10 @@ class Display {
       numBasketItemsDOM.innerHTML = numBasketItems;
 
       Storage.saveBasket(basket);
-      // let itemInbasket = Storage.getItem(currentProduct.productId)
+      // const itemInbasket = Storage.getItem(currentProduct.productId)
       // console.log(itemInbasket);
 
-      console.log(basket);
+      console.log(...basket);
       // console.log(currentQuantity, currentProduct.price[sizeSelect.selectedIndex]);
 
       addToBasketBtn.classList.add("added-to-basket");
@@ -212,16 +204,24 @@ class Display {
 
 class Storage {
   static saveProducts(products) {
-    localStorage.setItem("products", JSON.stringify(products))
+    localStorage.setItem("products", JSON.stringify(products));
   }
 
   static getItem(id) {
-    let products = JSON.parse(localStorage.getItem("products"))
-    return products.find(product => product.productId === id)
+    const products = JSON.parse(localStorage.getItem("products"));
+    return products.find(product => product.productId === id);
   }
 
   static saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket));
+  }
+
+  static getBasket() {
+    // return the basket if it exists in local storage, otherwise return an empty array
+    if (localStorage.getItem("basket")) {
+      return JSON.parse(localStorage.getItem("basket"));
+    }
+    return [];
   }
 }
 
@@ -233,16 +233,17 @@ class Storage {
   // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
   products.getProducts()
   .then(data => {
+    // getBasket is a static method so no need to create an instance
+    basket = Storage.getBasket();
+    console.log(basket);
     display.displayProducts(data);
-    // saveBasket is a static method, so don't need to create an instance
-    // Storage.saveBasket(data);
   })
   ;
 // })
 
 
 // Category selection - cakes, cupcakes or everything
-let categorySelectBtns = Array.from(document.querySelectorAll(".category-select"));
+const categorySelectBtns = Array.from(document.querySelectorAll(".category-select"));
 if (categorySelectBtns.length !== 0) {
   // show cakes and/or cupcakes based on whether onlyCupcakes and onlyCakes are true or false - if both are false, all categories will show, if either is true, only that category will be shown
   categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
