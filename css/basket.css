@@ -4,7 +4,7 @@
 }
 
 .basket-headers {
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
@@ -24,6 +24,7 @@
 .basket-item {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 1rem;
 }
 
 .basket-item > div{
@@ -52,6 +53,20 @@
   font-size: 1.5rem;
   color: #e46c6c;
   cursor: pointer;
+  transition: ease 0.3s;
+  -moz-transition: ease 0.3s;
+	-ms-transition: ease 0.3s;
+	-o-transition: ease 0.3s;
+	transition: ease 0.3s;
+}
+
+.backet-item-remove-btn:hover {
+  transform: scale(1.15);
+  transition: ease 0.3s;
+  -moz-transition: ease 0.3s;
+	-ms-transition: ease 0.3s;
+	-o-transition: ease 0.3s;
+	transition: ease 0.3s;
 }
 
 .basket-item-qty > i {

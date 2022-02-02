@@ -4,8 +4,6 @@ let onlyCakes = false;
 let onlyCupcakes = false;
 let currentSort = 0;
 const numBasketItemsDOM = document.querySelector(".num-basket-items");
-// initialise number of items in the basket to 0
-let numBasketItems = 0;
 
 const client = contentful.createClient({
     // This is the space ID and access token for the contentful data
@@ -102,7 +100,7 @@ class Display {
     this.getSingleProduct(products);
   }
 
-  // redirects to product.html?id=xxxx based on whichever product is clicked
+  // redirects to product.html?productId=xxxx
   getSingleProduct(products) {
     const productMoreInfo = Array.from(document.querySelectorAll(".product"));
     productMoreInfo.forEach(product => {
@@ -112,7 +110,6 @@ class Display {
           return prod.productId === product.id;
         });
         this.displaySingleProduct(currentProduct, product);
-      // https://vanillabeanbakery.netlify.app/product.html?id=XXXXX
       })
     })
   }
@@ -168,25 +165,26 @@ class Display {
       // check if the item is already in the basket
       const inBasket = basket.find(item => item.id === currentProduct.productId);
       if (inBasket) {
-        console.log("this is in the basket already");
         // if it is, increase the current size selected (small is 0, med is 1, large is 2) by the chosen quantity
         inBasket.quantity[sizeSelect.selectedIndex] += currentQuantity;
       } else {
-        console.log("this is not in the basket");
+        console.log(currentProduct);
         // otherwise add a blank item to the basket, and then increase the current size selected by the chosen quantity
         basket.push({
           id: currentProduct.productId,
           title: currentProduct.title,
-          quantity: [0, 0, 0]
+          quantity: [0, 0, 0],
+          productType: currentProduct.productType,
+          productImage: currentProduct.productImage,
+          price: currentProduct.price
         })
         basket[basket.length-1].quantity[sizeSelect.selectedIndex] += currentQuantity;
       }
-      numBasketItems += currentQuantity;
-      numBasketItemsDOM.innerHTML = numBasketItems;
 
       Storage.saveBasket(basket);
       // const itemInbasket = Storage.getItem(currentProduct.productId)
       // console.log(itemInbasket);
+      numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
 
       console.log(...basket);
       // console.log(currentQuantity, currentProduct.price[sizeSelect.selectedIndex]);
@@ -199,6 +197,17 @@ class Display {
         addToBasketBtn.innerHTML = "Add to basket";
       }, 1500)
     });
+  }
+}
+
+class CalculateItems {
+  static calculateItems(basket) {
+    // from the basket, add each quantity array as single digits, then reduce them to find the total number of items in the basket
+    let numItems = [];
+    if (basket.length !== 0) {
+      basket.forEach(item => numItems.push(...item.quantity))
+      return numItems.reduce((total, acc) => total + acc);
+    }
   }
 }
 
@@ -225,22 +234,100 @@ class Storage {
   }
 }
 
-// create instance of DisplayProducts and Products once the page loads
-// document.addEventListener("DOMContentLoaded", () => {
-  const display = new Display();
-  const products = new Products();
+class Basket {
+  static displayBasket() {
+    // console.log(...basket);
 
+    const basketContainer = document.querySelector(".basket-container");
+    let basketHTML = "";
+    basket.forEach(item => {
+      item.quantity.forEach((qty, i) => {
+        if (qty !== 0) {
+          console.log(item, i);
+
+          basketHTML += `<div class="basket-item">
+          <div class="grid-image">
+            <img src="${item.productImage}" class="basket-item-image" alt="">
+          </div>
+          <div class="grid-product basket-item-title-container">
+            <h6 class="basket-item-title">${item.title}</h6>
+            <a class="backet-item-remove-btn" href="#">Remove</a>
+          </div>
+          <div>
+            <h6 class="basket-item-size">${item.productType === "cake"
+                                            ? i === 0
+                                              ? "Small (6-inch)"
+                                              : i === 1
+                                                ? "Medium (8-inch)"
+                                                : "Large (10-inch)"
+                                            : i === 0
+                                              ? "1 cupcake"
+                                              : "Box of 6 cupcakes"
+                                          }</h6>
+          </div>
+          <div>
+            <h6 class="basket-item-price">${item.price[i]}</h6>
+          </div>
+          <div class="basket-item-qty">
+            <i class='bx bx-minus-circle'></i>
+            <div class="item-qty">${qty}</div>
+            <i class='bx bx-plus-circle'></i>
+          </div>
+          <div>
+            <h6 class="basket-item-subtotal">$${(item.price[i] * qty).toFixed(2)}</h6>
+          </div>
+        </div>`;
+        }
+      })
+    });
+
+     `<div class="basket-item">
+    <div class="grid-image">
+      <img src="./images/cakes/cherry-bakewell.jpg" class="basket-item-image" alt="">
+    </div>
+    <div class="grid-product basket-item-title-container">
+      <h6 class="basket-item-title">Cherry Bakewell Cake</h6>
+      <a class="backet-item-remove-btn" href="#">Remove</a>
+    </div>
+    <div>
+      <h6 class="basket-item-size">Small (6-inch)</h6>
+    </div>
+    <div>
+      <h6 class="basket-item-price">$44.95</h6>
+    </div>
+    <div class="basket-item-qty">
+      <i class='bx bx-minus-circle'></i>
+      <div class="item-qty">1</div>
+      <i class='bx bx-plus-circle'></i>
+    </div>
+    <div>
+      <h6 class="basket-item-subtotal">$44.95</h6>
+    </div>
+  </div>`;
+
+  basketContainer.innerHTML = basketHTML;
+  }
+}
+
+// create instance of DisplayProducts and Products as soon as the page loads
+const display = new Display();
+const products = new Products();
+
+// getBasket is a static method so no need to create an instance
+basket = Storage.getBasket();
+numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+console.log(numBasketItemsDOM.innerHTML);
+// if .basket exists, basket.html is the current page, so display the current basket
+if (document.querySelector(".basket")) {
+  Basket.displayBasket();
+} else {
   // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
   products.getProducts()
   .then(data => {
-    // getBasket is a static method so no need to create an instance
-    basket = Storage.getBasket();
     console.log(basket);
     display.displayProducts(data);
-  })
-  ;
-// })
-
+  });
+}
 
 // Category selection - cakes, cupcakes or everything
 const categorySelectBtns = Array.from(document.querySelectorAll(".category-select"));

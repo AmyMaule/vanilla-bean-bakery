@@ -120,13 +120,13 @@ li {
   animation-duration: 0.5s;
 }
 
-/* has the basket hover left and right instead of scaling */
+/* has the basket scale up and back down so the basket items aren't blocked */
 @keyframes basketHover {
-  0% {   transform: translateX(0%);  }
-  25% {  transform: translateX(-3%);  }
-  50% {   transform: translateX(0%);  }
-  75% {   transform: translateX(3%);  }
-  100% {   transform: translateX(0%);  }
+  0% {   transform: scale(1);  }
+  25% {   transform: scale(1.05);  }
+  50% {   transform: scale(1.1);  }
+  75% {   transform: scale(1.05);  }
+  100% {   transform: scale(1);  }
 }
 
 .num-basket-items-container:hover + .menu-item-last {
@@ -156,6 +156,7 @@ li {
   margin-left: 20px;
   margin-right: -47px;
   margin-bottom: 8px;
+  padding-top: 2px;
   width: 21px;
   height: 17px;
   z-index: 10;
