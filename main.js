@@ -252,6 +252,12 @@ class Storage {
 
 class Basket {
   static displayBasket() {
+    // if the basket is empty, hide the banner with the headers
+    if (basket.length === 0) {
+      document.querySelector("#basket-headers").classList.add("hide");
+    } else {
+      document.querySelector("#basket-headers").classList.remove("hide");
+    }
     let basketSubtotal = 0;
     let discount = 0;
     const basketContainer = document.querySelector(".basket-container");
@@ -336,16 +342,18 @@ class Basket {
         ? "minus"
         : "plus";
 
-    basket.filter(item => {
+    basket.filter((item, i) => {
       if (item.id === e.target.dataset.id) {
         let index = item.price.indexOf(Number(e.target.dataset.price));
         if (direction === "plus") {
           item.quantity[index]++;
         } else if (direction === "minus") {
           item.quantity[index]--;
+          // if the new quantity is 0, splice the item out of the basket
+          if (item.quantity[index] === 0) basket.splice(i, 1);
         } else {
           // to remove items, set the quantity of the current size option to 0 and the foreEach in this.displayBasket will remove it from the basket
-          item.quantity[index] = 0;
+          basket.splice(i, 1);
         }
       }
       Storage.saveBasket(basket);
@@ -411,3 +419,8 @@ if (sortingOptionsDOM) {
 // TODO
 // responsive styles for single product page
 // deal with hamburger menu
+// problem with items not deleting from local storage when deleting from basket
+
+
+
+

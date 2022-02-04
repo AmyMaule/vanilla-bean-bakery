@@ -172,6 +172,10 @@ li {
   display: none;
 }
 
+.menu.show {
+  left: 0;
+}
+
 .header-position {
   height: 70px;
   width: 100%;
@@ -619,9 +623,9 @@ li {
     position: fixed;
     top: 0;
     left: -100%;
-    width: 80%;
-    max-width: 40rem;
-    height: 100%;
+    width:70%;
+    max-width: 37rem;
+    height: 70%;
     background-color: rgb(254, 254, 254);
     transition: all 0.5s ease-in-out;
     z-index: 100;
@@ -637,9 +641,6 @@ li {
   z-index: 50;
 }
 
-  .menu.show {
-    left: 0;
-  }
 
   .mobile-navbar {
     display: flex;
@@ -1044,3 +1045,4 @@ li {
     min-width: 210px;
   }
 }
+

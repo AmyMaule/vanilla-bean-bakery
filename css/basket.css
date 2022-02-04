@@ -494,6 +494,10 @@
   }
 }
 
+.hide {
+  display: none;
+}
+
 @media only screen and (max-width: 310px) {
   .basket-item-title {
     font-size: 1.55rem;
