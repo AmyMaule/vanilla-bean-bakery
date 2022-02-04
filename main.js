@@ -102,6 +102,7 @@ class Display {
 
   // redirects to product.html?productId=xxxx
   getSingleProduct(products) {
+    if (document.querySelector(".featured-title")) return;
     const productMoreInfo = Array.from(document.querySelectorAll(".product"));
     productMoreInfo.forEach(product => {
       // click anywhere in the product box to visit the product page for that item
@@ -265,6 +266,7 @@ class Basket {
             basketSubtotal += Number(item.price[i] * qty);
           }
 
+          // &#8209; is used as a non-breaking hyphen to preserve line breaks on a space
           basketHTML += `<div class="basket-item">
           <div class="grid-image">
             <img src="${item.productImage}" class="basket-item-image" alt="">
@@ -273,19 +275,19 @@ class Basket {
             <h6 class="basket-item-title">${item.title}</h6>
             <div class="basket-item-remove-btn" data-id="${item.id}" data-price="${item.price[i]}">Remove</div>
           </div>
-          <div>
+          <div class="basket-item-size-container">
             <h6 class="basket-item-size">${item.productType === "cake"
                                             ? i === 0
-                                              ? "Small (6-inch)"
+                                              ? "Small (6&#8209;inch)"
                                               : i === 1
-                                                ? "Medium (8-inch)"
-                                                : "Large (10-inch)"
+                                                ? "Medium (8&#8209;inch)"
+                                                : "Large (10&#8209;inch)"
                                             : i === 0
                                               ? "1 cupcake"
                                               : "Box of 6"
                                           }</h6>
           </div>
-          <div>
+          <div class="basket-item-price-container">
             <h6 class="basket-item-price">${item.price[i]}</h6>
           </div>
           <div class="basket-item-qty">
@@ -293,7 +295,7 @@ class Basket {
             <div class="item-qty">${qty}</div>
             <i class='bx bx-plus-circle basket-qty-plus' data-id="${item.id}" data-price="${item.price[i]}"></i>
           </div>
-          <div>
+          <div class="basket-item-subtotal-container">
             <h6 class="basket-item-subtotal">$${(item.price[i] * qty).toFixed(2)}</h6>
           </div>
         </div>`;
@@ -408,3 +410,4 @@ if (sortingOptionsDOM) {
 
 // TODO
 // responsive styles for single product page
+// deal with hamburger menu

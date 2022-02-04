@@ -1009,7 +1009,8 @@ li {
   }
 
   .header-title {
-    margin-left: 0.2rem;
+    /* margin-left: 0.2rem; */
+    margin-left: 0.8rem;
   }
 }
 
