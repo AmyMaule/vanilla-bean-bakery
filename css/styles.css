@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: Saphira;
-  src: url("../fonts/Saphira\ DEMO.otf");
+  src: url("../fonts/Saphira.otf");
 }
 
 *,
@@ -657,8 +657,7 @@ body.show::before {
   background-color: #6f242a;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 50;
-}
-
+  }
 
   .mobile-navbar {
     display: flex;
@@ -810,7 +809,7 @@ body.show::before {
   }
 
   .mobile-basket-icon {
-    padding-left: 15%;
+    margin-left: 15%;
   }
 
   .loyalty {
@@ -885,16 +884,13 @@ body.show::before {
     max-width: 230px;
   }
 
-  .mobile-basket-icon {
-    font-size: 3.5rem;
-  }
-
   .hamburger-menu {
     font-size: 3.5rem;
   }
 
   .mobile-basket-icon {
-    padding-left: 5%;
+    font-size: 3.5rem;
+    margin-left: 5%;
   }
 }
 
@@ -943,8 +939,13 @@ body.show::before {
   }
 
   .mobile-basket-icon {
-    padding-left: 0%;
+    margin-left: 0%;
   }
+
+  .menu {
+    width: 80%;
+  }
+
 }
 
 @media only screen and (max-width: 420px) {
@@ -954,6 +955,10 @@ body.show::before {
 }
 
 @media only screen and (max-width: 400px) {
+  .menu {
+    width: 90%;
+  }
+
   .product {
     height: 400px;
   }
@@ -1042,6 +1047,10 @@ body.show::before {
 @media only screen and (max-width: 335px) {
   .widget-description {
     font-size: 1.3rem;
+  }
+
+  .menu {
+    width: 100%;
   }
 }
 

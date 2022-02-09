@@ -26,10 +26,10 @@ class Products {
       .catch(err => console.log(err));
 
       const productInformation = products.map(product => {
-        const { discount, title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers } = product.fields;
+        const { discount, title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2 } = product.fields;
         const productId = product.sys.id;
         const productImage = product.fields.productImage.fields.file.url;
-        return {price: [priceSmall, priceMed, priceLarge], discount, title, productId, productImage, productType, flavor, icingFlavor, dripType, topping1, topping2, tiers};
+        return {price: [priceSmall, priceMed, priceLarge], discount, title, productId, productImage, productType, flavor, icingFlavor, dripType, topping1, topping2};
       })
       return productInformation;
     }
@@ -131,7 +131,7 @@ class Display {
     const currentPriceDOM = document.querySelector(".single-product-price");
     currentPriceDOM.innerHTML = `$${currentProduct.price[0]}`;
     if (currentProduct.productType === "cake") {
-      document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: ${currentProduct.tiers === 1 ? "6-inch, 8-inch and 10-inch." : "6/8-inch, 8/10-inch and 10/12-inch tiers."}`;
+      document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: 6-inch, 8-inch and 10-inch.`;
     } else {
       document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} is made up of a ${currentProduct.flavor} flavored sponge, filled and decorated with ${currentProduct.icingFlavor}. Finished off with ${currentProduct.topping1}, and a choice of other toppings. Available as individual cupcakes or as a box of 6.`;
     }
@@ -416,11 +416,6 @@ if (sortingOptionsDOM) {
   })
 }
 
-// TODO
-// responsive styles for single product page
-
-
-
 // menu is the mobile menu that opens when the hamburger icon is clicked
 const menu = document.querySelector(".menu");
 const navOpen = document.querySelector(".hamburger-menu");
@@ -462,4 +457,5 @@ document.body.addEventListener("click", e => {
   }
 })
 
-
+// TODO
+// responsive styles for single product page
