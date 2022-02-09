@@ -418,9 +418,48 @@ if (sortingOptionsDOM) {
 
 // TODO
 // responsive styles for single product page
-// deal with hamburger menu
-// problem with items not deleting from local storage when deleting from basket
 
 
+
+// menu is the mobile menu that opens when the hamburger icon is clicked
+const menu = document.querySelector(".menu");
+const navOpen = document.querySelector(".hamburger-menu");
+const navClose = document.querySelector(".x-close");
+const navBar = document.querySelector(".navbar");
+
+// menuPosition gets the left value of the mobile navbar menu
+const menuPosition = menu.getBoundingClientRect().left;
+navOpen.addEventListener("click", () => {
+  if (menu.classList.contains("show")) {
+    console.log("clicked shut");
+    menu.classList.remove("show");
+    document.body.classList.remove("show");
+    navBar.classList.remove("show");
+  } else {
+    console.log("clicked open");
+    menu.classList.add("show");
+    document.body.classList.add("show");
+    navBar.classList.add("show");
+  }
+});
+
+// close the menu when the user clicks the "X"
+navClose.addEventListener("click", () => {
+  if (menuPosition < 0) {
+    menu.classList.remove("show");
+    document.body.classList.remove("show");
+    navBar.classList.remove("show");
+  }
+});
+
+document.body.addEventListener("click", e => {
+  // if the user clicks on the body or the navbar (with class "show"), close the menu
+    if (e.target.classList.contains("body", "show") || e.target.classList.contains("navbar", "show")) {
+      console.log(e.target);
+      menu.classList.remove("show");
+      document.body.classList.remove("show");
+      navBar.classList.remove("show");
+  }
+})
 
 
