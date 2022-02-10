@@ -134,13 +134,13 @@ class Display {
     window.history.replaceState(null, "", `products.html?productId=${productDOM.id}`);
 
     // hide the current products, and show the selected product
-    document.querySelector(".product-display-background").classList.add("hide");
-    document.querySelector(".products").classList.add("hide");
-    document.querySelector(".single-product").classList.remove("hide");
+    document.querySelector(".product-display-background")!.classList.add("hide");
+    document.querySelector(".products")!.classList.add("hide");
+    document.querySelector(".single-product")!.classList.remove("hide");
 
     // dynamically fill in the product details using the selected product data
-    document.querySelector(".size-options-title").innerHTML = currentProduct.productType === "cake" ? "Select size :" : "Box size: ";
-    document.querySelector(".single-product-image").src = currentProduct.productImage;
+    document.querySelector(".size-options-title")!.innerHTML = currentProduct.productType === "cake" ? "Select size :" : "Box size: ";
+    document.querySelector(".single-product-image")!.src = currentProduct.productImage;
     // currentTitleDOM holds the desktop version (.single-product-title) and the mobile version (.single-product.title-small)
     const currentTitleDOM = document.querySelectorAll(".single-product-title, .single-product-title-small");
     currentTitleDOM.forEach(titleDOM => titleDOM.innerHTML = currentProduct.title);
@@ -164,18 +164,18 @@ class Display {
 
     // change the price on the page based on the size selected
     if (currentProduct.productType === "cake") {
-      document.querySelector(".size-select-cake").classList.remove("hide");
-      document.querySelector(".size-select-cupcake").classList.add("hide");
+      document.querySelector(".size-select-cake")!.classList.remove("hide");
+      document.querySelector(".size-select-cupcake")!.classList.add("hide");
     } else {
-      document.querySelector(".size-select-cake").classList.add("hide");
-      document.querySelector(".size-select-cupcake").classList.remove("hide");
+      document.querySelector(".size-select-cake")!.classList.add("hide");
+      document.querySelector(".size-select-cupcake")!.classList.remove("hide");
     }
 
     // change the display price each time the user changes the cake/cupcake size
-    const sizeSelect = document.querySelector(".size-select-cake").classList.contains("hide")
+    const sizeSelect = document.querySelector(".size-select-cake")!.classList.contains("hide")
       ? document.querySelector(".size-select-cupcake")
       : document.querySelector(".size-select-cake");
-    sizeSelect.addEventListener("change", () => {
+    sizeSelect!.addEventListener("change", () => {
       currentPriceDOM.forEach(priceDOM => priceDOM.innerHTML = `$${currentProduct.price[sizeSelect.selectedIndex]}`);
     })
 
@@ -189,12 +189,12 @@ class Display {
         } else {
           currentQuantity++;
         }
-        document.querySelector(".product-qty").innerHTML = currentQuantity;
+        document.querySelector(".product-qty")!.innerHTML = String(currentQuantity);
       });
     })
     // add a product to the basket
     const addToBasketBtn = document.querySelector(".add-to-basket");
-    addToBasketBtn.addEventListener("click", () => {
+    addToBasketBtn!.addEventListener("click", () => {
       // check if the item is already in the basket
       const inBasket = basket.find(item => item.id === currentProduct.productId);
       if (inBasket) {
@@ -215,28 +215,30 @@ class Display {
       }
 
       Storage.saveBasket(basket);
-      numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+      numBasketItemsDOM!.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
 
       console.log(...basket);
       // console.log(currentQuantity, currentProduct.price[sizeSelect.selectedIndex]);
 
-      addToBasketBtn.classList.add("added-to-basket");
-      addToBasketBtn.innerHTML = "Added to basket";
+      addToBasketBtn!.classList.add("added-to-basket");
+      addToBasketBtn!.innerHTML = "Added to basket";
 
       setTimeout(() => {
-        addToBasketBtn.classList.remove("added-to-basket");
-        addToBasketBtn.innerHTML = "Add to basket";
+        addToBasketBtn!.classList.remove("added-to-basket");
+        addToBasketBtn!.innerHTML = "Add to basket";
       }, 1500)
     });
   }
 }
 
 class CalculateItems {
-  static calculateItems(basket) {
+  static calculateItems(basket: []) {
     // from the basket, add each quantity array as single digits, then reduce them to find the total number of items in the basket
-    let numItems = [];
+    let numItems: number[] = [];
     if (basket.length !== 0) {
-      basket.forEach(item => numItems.push(...item.quantity))
+      for (let item of basket) {
+        numItems.push(...item.quantity);
+      }
       return numItems.reduce((total, acc) => total + acc);
     }
   }
@@ -260,9 +262,9 @@ class Basket {
   static displayBasket() {
     // if the basket is empty, hide the banner with the headers
     if (basket.length === 0) {
-      document.querySelector("#basket-headers").classList.add("hide");
+      document.querySelector("#basket-headers")!.classList.add("hide");
     } else {
-      document.querySelector("#basket-headers").classList.remove("hide");
+      document.querySelector("#basket-headers")!.classList.remove("hide");
     }
     let basketSubtotal = 0;
     let discount = 0;
@@ -320,19 +322,19 @@ class Basket {
     basketContainer.innerHTML = basketHTML;
 
     // update the order total, the delivery (free if order total > $50) and the subtotal
-    document.querySelector(".basket-order-total-value").innerHTML = "$" + basketSubtotal.toFixed(2);
-    document.querySelector(".basket-delivery-value").innerHTML = basketSubtotal > 50 ? "FREE" : "$14.95";
-    document.querySelector(".basket-discount-value").innerHTML = "-$" + discount.toFixed(2);
-    document.querySelector(".basket-subtotal-value").innerHTML = basketSubtotal > 50 ? "$" + (basketSubtotal - discount).toFixed(2) : "$" + (basketSubtotal - discount + 14.95).toFixed(2);
+    document.querySelector(".basket-order-total-value")!.innerHTML = "$" + basketSubtotal.toFixed(2);
+    document.querySelector(".basket-delivery-value")!.innerHTML = basketSubtotal > 50 ? "FREE" : "$14.95";
+    document.querySelector(".basket-discount-value")!.innerHTML = "-$" + discount.toFixed(2);
+    document.querySelector(".basket-subtotal-value")!.innerHTML = basketSubtotal > 50 ? "$" + (basketSubtotal - discount).toFixed(2) : "$" + (basketSubtotal - discount + 14.95).toFixed(2);
 
     // update giftwrapping status
-    document.querySelector(".basket-giftwrapping-yes").addEventListener("click", () => {
-      document.querySelector(".basket-giftwrapping-yes").classList.add("gift-wrapping-selected");
-      document.querySelector(".basket-giftwrapping-no").classList.remove("gift-wrapping-selected");
+    document.querySelector(".basket-giftwrapping-yes")!.addEventListener("click", () => {
+      document.querySelector(".basket-giftwrapping-yes")!.classList.add("gift-wrapping-selected");
+      document.querySelector(".basket-giftwrapping-no")!.classList.remove("gift-wrapping-selected");
     });
-    document.querySelector(".basket-giftwrapping-no").addEventListener("click", () => {
-      document.querySelector(".basket-giftwrapping-no").classList.add("gift-wrapping-selected");
-      document.querySelector(".basket-giftwrapping-yes").classList.remove("gift-wrapping-selected");
+    document.querySelector(".basket-giftwrapping-no")!.addEventListener("click", () => {
+      document.querySelector(".basket-giftwrapping-no")!.classList.add("gift-wrapping-selected");
+      document.querySelector(".basket-giftwrapping-yes")!.classList.remove("gift-wrapping-selected");
     });
 
     let qtyChange = [...document.querySelectorAll(".basket-qty-minus, .basket-qty-plus, .basket-item-remove-btn")];
@@ -363,11 +365,10 @@ class Basket {
         }
       }
       Storage.saveBasket(basket);
-      numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+      numBasketItemsDOM!.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
       // reload the page to reflect changes instead of making lots of small UI updates
       location.reload();
     })
-
   }
 }
 
@@ -377,7 +378,7 @@ const products = new Products();
 
 // getBasket is a static method so no need to create an instance
 basket = Storage.getBasket();
-numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+numBasketItemsDOM!.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
 // if .basket exists, basket.html is the current page, so display the current basket
 if (document.querySelector(".basket")) {
   Basket.displayBasket();
@@ -432,27 +433,25 @@ const navClose = document.querySelector(".x-close");
 const navBar = document.querySelector(".navbar");
 
 // menuPosition gets the left value of the mobile navbar menu
-const menuPosition = menu.getBoundingClientRect().left;
-navOpen.addEventListener("click", () => {
-  if (menu.classList.contains("show")) {
-    console.log("clicked shut");
-    menu.classList.remove("show");
+const menuPosition = menu!.getBoundingClientRect().left;
+navOpen!.addEventListener("click", () => {
+  if (menu!.classList.contains("show")) {
+    menu!.classList.remove("show");
     document.body.classList.remove("show");
-    navBar.classList.remove("show");
+    navBar!.classList.remove("show");
   } else {
-    console.log("clicked open");
-    menu.classList.add("show");
+    menu!.classList.add("show");
     document.body.classList.add("show");
-    navBar.classList.add("show");
+    navBar!.classList.add("show");
   }
 });
 
 // close the menu when the user clicks the "X"
-navClose.addEventListener("click", () => {
+navClose!.addEventListener("click", () => {
   if (menuPosition < 0) {
-    menu.classList.remove("show");
+    menu!.classList.remove("show");
     document.body.classList.remove("show");
-    navBar.classList.remove("show");
+    navBar!.classList.remove("show");
   }
 });
 
@@ -460,11 +459,8 @@ document.body.addEventListener("click", e => {
   // if the user clicks on the body or the navbar (with class "show"), close the menu
     if (e.target.classList.contains("body", "show") || e.target.classList.contains("navbar", "show")) {
       console.log(e.target);
-      menu.classList.remove("show");
+      menu!.classList.remove("show");
       document.body.classList.remove("show");
-      navBar.classList.remove("show");
+      navBar!.classList.remove("show");
   }
 })
-
-// TODO
-// responsive styles for single product page

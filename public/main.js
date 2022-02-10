@@ -85,7 +85,6 @@ class Display {
         });
         let productHTML = "";
         products.forEach(product => {
-            console.log(product);
             productHTML += `
       <div class="product" id="${product.productId}">
       <div class="product-image">
@@ -181,7 +180,7 @@ class Display {
                 else {
                     currentQuantity++;
                 }
-                document.querySelector(".product-qty").innerHTML = currentQuantity;
+                document.querySelector(".product-qty").innerHTML = String(currentQuantity);
             });
         });
         // add a product to the basket
@@ -207,9 +206,7 @@ class Display {
                 basket[basket.length - 1].quantity[sizeSelect.selectedIndex] += currentQuantity;
             }
             Storage.saveBasket(basket);
-            // const itemInbasket = Storage.getItem(currentProduct.productId)
-            // console.log(itemInbasket);
-            numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+            numBasketItemsDOM.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
             console.log(...basket);
             // console.log(currentQuantity, currentProduct.price[sizeSelect.selectedIndex]);
             addToBasketBtn.classList.add("added-to-basket");
@@ -226,20 +223,14 @@ class CalculateItems {
         // from the basket, add each quantity array as single digits, then reduce them to find the total number of items in the basket
         let numItems = [];
         if (basket.length !== 0) {
-            basket.forEach(item => numItems.push(...item.quantity));
+            for (let item of basket) {
+                numItems.push(...item.quantity);
+            }
             return numItems.reduce((total, acc) => total + acc);
         }
     }
 }
 class Storage {
-    static saveProducts(products) {
-        localStorage.setItem("products", JSON.stringify(products));
-    }
-    static getItem(id) {
-        console.log(typeof id);
-        const products = JSON.parse(localStorage.getItem("products"));
-        return products.find(product => product.productId === id);
-    }
     static saveBasket(basket) {
         localStorage.setItem("basket", JSON.stringify(basket));
     }
@@ -355,7 +346,7 @@ class Basket {
                 }
             }
             Storage.saveBasket(basket);
-            numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+            numBasketItemsDOM.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
             // reload the page to reflect changes instead of making lots of small UI updates
             location.reload();
         });
@@ -366,7 +357,7 @@ const display = new Display();
 const products = new Products();
 // getBasket is a static method so no need to create an instance
 basket = Storage.getBasket();
-numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
+numBasketItemsDOM.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
 // if .basket exists, basket.html is the current page, so display the current basket
 if (document.querySelector(".basket")) {
     Basket.displayBasket();
@@ -421,13 +412,11 @@ const navBar = document.querySelector(".navbar");
 const menuPosition = menu.getBoundingClientRect().left;
 navOpen.addEventListener("click", () => {
     if (menu.classList.contains("show")) {
-        console.log("clicked shut");
         menu.classList.remove("show");
         document.body.classList.remove("show");
         navBar.classList.remove("show");
     }
     else {
-        console.log("clicked open");
         menu.classList.add("show");
         document.body.classList.add("show");
         navBar.classList.add("show");
@@ -450,5 +439,3 @@ document.body.addEventListener("click", e => {
         navBar.classList.remove("show");
     }
 });
-// TODO
-// responsive styles for single product page
