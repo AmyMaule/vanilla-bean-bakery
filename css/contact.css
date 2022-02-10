@@ -5,6 +5,7 @@ body {
 }
 
 .contact-container {
+  max-height: 100vh;
   border: solid 3px #423b39;
   max-width: 775px;
   max-height: 600px;
