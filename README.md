@@ -45,7 +45,7 @@ promoted on the homepage.
 The Vanilla Bean Bakery website is fully responsive so can be viewed from any screen size :<br><br>
 
 <div align="center">
-  <img src="./images/readme/homepage-mobile.png" height="410px">
+  <img src="./images/readme/homepage-mobile.png" width="100%">
   <br><br><br>
   <img src="./images/readme/homepage-ipad.png" width="100%">
   <br><br><br>
