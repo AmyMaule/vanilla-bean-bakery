@@ -58,9 +58,9 @@ class Display {
       products = products.sort((a, b) => b.title > a.title ? 1 : -1);
     }
     // if currentSort is 0 it is on "Sort by", so the product order on the page should not change
-    if (currentSort !== 0) {
+    // if (currentSort !== 0) {
       this.displayProducts(products);
-    }
+    // }
   }
 
   // products is an array of objects, one for each item
@@ -133,7 +133,7 @@ class Display {
     if (currentProduct.productType === "cake") {
       document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: 6-inch, 8-inch and 10-inch.`;
     } else {
-      document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} is made up of a ${currentProduct.flavor} flavored sponge, filled and decorated with ${currentProduct.icingFlavor}. Finished off with ${currentProduct.topping1}, and a choice of other toppings. Available as individual cupcakes or as a box of 6.`;
+      document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} consists of a ${currentProduct.flavor} flavored sponge, filled and decorated with ${currentProduct.icingFlavor}. Finished off with ${currentProduct.topping1}, and a choice of other toppings. Available as individual cupcakes or as a box of 6.`;
     }
 
     currentProduct.productType === "cupcake"
@@ -379,7 +379,8 @@ if (document.querySelector(".basket")) {
   // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
   products.getProducts()
   .then(data => {
-    display.displayProducts(data);
+    // call sortProducts to make sure current sort is taken into account when displaying the products
+    display.sortProducts(data);
   });
 }
 
@@ -401,7 +402,8 @@ if (categorySelectBtns.length !== 0) {
     }
 
     products.getProducts()
-    .then(data => display.displayProducts(data));
+    // call sortProducts to make sure current sort is taken into account when displaying the products
+    .then(data => display.sortProducts(data));
   }))
 }
 
@@ -412,6 +414,7 @@ if (sortingOptionsDOM) {
     // currentSort is set to the index of the selected sorting option for use in the display.sortProducts method
     currentSort = sortingOptionsDOM.selectedIndex;
     products.getProducts()
+    // call sortProducts to make sure current sort is taken into account when displaying the products
     .then(data => display.sortProducts(data));
   })
 }
