@@ -14,6 +14,20 @@ const client = contentful.createClient({
 // basket is initialised to empty array, and overwritten if local storage already contains basket items
 let basket: any[] = [];
 
+type ProductType = {
+  price: number[],
+  title: string,
+  productId: string,
+  productImage: string,
+  productType: string,
+  flavor: string,
+  icingFlavor: string,
+  dripType?: string,
+  topping1: string,
+  topping2?: string,
+  discount?: boolean
+}
+
 class Products {
   async getProducts() {
     try {
@@ -40,7 +54,7 @@ class Products {
 }
 
 class Display {
-  sortProducts(products) {
+  sortProducts(products: []) {
     // 1 is recommended (which sorts by product ID)
     if (currentSort === 1) {
       products = products.sort((a: {productId: string}, b: {productId: string}) => a.productId > b.productId ? 1 : -1);
@@ -75,8 +89,6 @@ class Display {
 
     let productHTML = "";
     products.forEach(product => {
-      console.log(product);
-
       productHTML += `
       <div class="product" id="${product.productId}">
       <div class="product-image">
@@ -203,8 +215,6 @@ class Display {
       }
 
       Storage.saveBasket(basket);
-      // const itemInbasket = Storage.getItem(currentProduct.productId)
-      // console.log(itemInbasket);
       numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
 
       console.log(...basket);
@@ -233,16 +243,7 @@ class CalculateItems {
 }
 
 class Storage {
-  static saveProducts(products) {
-    localStorage.setItem("products", JSON.stringify(products));
-  }
-
-  static getItem(id) {
-    const products = JSON.parse(localStorage.getItem("products"));
-    return products.find(product => product.productId === id);
-  }
-
-  static saveBasket(basket) {
+  static saveBasket(basket: []) {
     localStorage.setItem("basket", JSON.stringify(basket));
   }
 
@@ -268,7 +269,7 @@ class Basket {
     const basketContainer = document.querySelector(".basket-container");
     let basketHTML = "";
     basket.forEach(item => {
-      item.quantity.forEach((qty, i) => {
+      item.quantity.forEach((qty: number, i: number) => {
         if (qty !== 0) {
           if (item.discount === true) {
             basketSubtotal += 0.8 * Number(item.price[i] * qty);
