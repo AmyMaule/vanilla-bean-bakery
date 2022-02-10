@@ -211,6 +211,10 @@ select {
   text-align: center;
 }
 
+.single-product-title-small, .single-product-price-small {
+  display: none;
+}
+
 .single-product-price {
   font-size: 2rem;
   text-align: center;
@@ -339,7 +343,7 @@ select {
   margin-bottom: 0.5rem;
 }
 
-.portion-size-guide h6 {
+.portion-size-guide h6, .portion-size-guide-small h6 {
   font-size: 1.5rem;
   font-weight: normal;
   margin-bottom: 0.3rem;
@@ -350,8 +354,13 @@ select {
   font-size: 1.9rem;
 }
 
-.discount-container a {
+.discount-container a, .discount-container-small a {
   text-decoration: underline;
+}
+
+/* hide mobile discount and portion size guide */
+.discount-container-small, .portion-size-guide-small {
+  display: none;
 }
 /* end of single product */
 
@@ -381,15 +390,22 @@ select {
   }
 }
 
-@media only screen and (max-width: 890px) {
+@media only screen and (max-width: 910px) {
+  .discount-container, .portion-size-guide {
+    display: none;
+  }
+
+  .discount-container-small, .portion-size-guide-small {
+    display: block;
+    margin-top: 2.5rem;
+  }
+
   .single-product-title {
     font-size: 3rem;
   }
 
-  .portion-size-guide {
-    position: absolute;
-    left: 3rem;
-    margin-top: -6rem;
+  .add-quantity-container {
+    width: 80%;
   }
 }
 
@@ -402,22 +418,24 @@ select {
     font-size: 2.8rem;
   }
 
-  .portion-size-guide {
-    position: absolute;
-    left: 3rem;
-    margin-top: -10rem;
-  }
-
   .single-product-description {
     font-size: 1.7rem;
   }
 }
 
 @media only screen and (max-width: 755px) {
+  .portion-size-guide {
+    margin-top: -18rem;
+  }
+
   .discount-container {
     position: absolute;
     left: 3rem;
-    margin-top: -3rem;
+    margin-top: -6rem;
+  }
+
+  .discount-container h4, .discount-container-small h4 {
+    font-size: 1.6rem;
   }
 }
 
@@ -428,6 +446,19 @@ select {
 
   .category-select-title-container > * {
     font-size: 2.5rem;
+  }
+
+  .add-to-basket, .add-quantity-container {
+    width: 90%;
+  }
+
+  .size-select-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .size-select {
+    width: 90%;
   }
 }
 
@@ -459,6 +490,22 @@ select {
   .category-select-title-container > * {
     font-size: 2.2rem;
   }
+
+  .back-to-products {
+    margin-left: 3rem;
+  }
+
+  .single-product-title {
+    font-size: 2.5rem;
+  }
+
+  .single-product-description {
+    font-size: 1.6rem;
+  }
+
+  .product-qty {
+    width: 40px;
+  }
 }
 
 @media only screen and (max-width: 630px) {
@@ -473,6 +520,85 @@ select {
 
   .category-select {
     margin-left: 3.5rem;
+  }
+
+  .add-to-basket {
+    font-size: 2.6rem;
+  }
+
+  .single-product-title, .single-product-price {
+    display: none;
+  }
+
+  .single-product-image-container {
+    padding: 0 1.5rem;
+  }
+
+  .single-product-more-information {
+    padding-right: 2rem;
+  }
+
+  .single-product-title-small {
+    display: block;
+    font-size: 3rem;
+    width: 100%;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .single-product-price-small {
+    display: block;
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    color: #e46c6c;
+  }
+
+  .single-product-description {
+    margin-top: 0;
+  }
+
+  .add-quantity-container, .size-select, .add-to-basket {
+    width: 100%;
+  }
+
+  .back-to-products {
+    margin-top: 1.5rem;
+    margin-left: 0.5rem;
+    font-size: 2.3rem;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+
+}
+
+@media only screen and (max-width: 555px) {
+  .quantity-basket-container {
+    margin-top: 0;
+  }
+
+  .add-to-basket {
+    margin-top: 0.5rem;
+  }
+
+  .add-quantity-container > span {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 515px) {
+  .portion-size-guide-small h6 {
+    font-size: 1.4rem;
+  }
+
+  .single-product-description {
+    text-align: justify;
+  }
+
+  .size-select-container {
+    margin-top: 3.5rem;
   }
 }
 
@@ -493,12 +619,86 @@ select {
   .sorting-options-container {
     margin: 2rem auto;
   }
+
+  .single-product {
+    margin-bottom: 8rem;
+  }
+
+  .single-product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .single-product-image-container {
+    max-width: 90%;
+    width: 90%;
+    margin-bottom: 0;
+  }
+
+  .discount-container {
+    display: block;
+    width: 90%;
+    margin-left: 5%;
+    left: 0;
+    text-align: center;
+  }
+
+  .discount-container-small {
+    display: none;
+  }
+
+  .portion-size-guide {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+
+  .portion-size-guide-small {
+    display: none;
+  }
+
+  .single-product-more-information {
+    max-width: 90%;
+    width: 90%;
+    padding: 0 1.5rem;
+  }
+
+  .single-product-description {
+    font-size: 1.8rem;
+  }
+
+  .size-select, .add-quantity-container {
+    width: 70%;
+  }
+
+  .add-to-basket {
+    width: 80%;
+    font-size: 3rem;
+    margin-top: 2rem;
+  }
+
+  .discount-container {
+    margin-top: 0;
+  }
+
+  .discount-container h4 {
+    font-size: 2rem;
+  }
 }
 
 @media only screen and (max-width: 400px) {
   .category-select {
     min-width: 60px;
     font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 370px) {
+  .size-select, .add-quantity-container, .add-to-basket {
+    width: 90%;
   }
 }
 

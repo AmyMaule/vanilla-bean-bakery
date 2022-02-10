@@ -127,18 +127,21 @@ class Display {
     // dynamically fill in the product details using the selected product data
     document.querySelector(".size-options-title").innerHTML = currentProduct.productType === "cake" ? "Select size :" : "Box size: ";
     document.querySelector(".single-product-image").src = currentProduct.productImage;
-    document.querySelector(".single-product-title").innerHTML = currentProduct.title;
-    const currentPriceDOM = document.querySelector(".single-product-price");
-    currentPriceDOM.innerHTML = `$${currentProduct.price[0]}`;
+    // currentTitleDOM holds the desktop version (.single-product-title) and the mobile version (.single-product.title-small)
+    const currentTitleDOM = document.querySelectorAll(".single-product-title, .single-product-title-small");
+    currentTitleDOM.forEach(titleDOM => titleDOM.innerHTML = currentProduct.title);
+    // currentPriceDOM holds the desktop version (.single-product-price) and the mobile version (.single-product.price-small)
+    const currentPriceDOM = [...document.querySelectorAll(".single-product-price, .single-product-price-small")];
+    currentPriceDOM.forEach(priceDOM => priceDOM.innerHTML = `$${currentProduct.price[0]}`);
     if (currentProduct.productType === "cake") {
       document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: 6-inch, 8-inch and 10-inch.`;
+      document.querySelector(".portion-size-guide").classList.remove("hide");
+      // document.querySelector(".discount-container").classList.remove("hide");
     } else {
       document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} consists of a ${currentProduct.flavor} flavored sponge, filled and decorated with ${currentProduct.icingFlavor}. Finished off with ${currentProduct.topping1}, and a choice of other toppings. Available as individual cupcakes or as a box of 6.`;
+      [...document.querySelectorAll(".portion-size-guide, .portion-size-guide-small")].forEach(guide => guide.classList.add("hide"));
+      // document.querySelector(".discount-container").classList.add("hide");
     }
-
-    currentProduct.productType === "cupcake"
-      ? document.querySelector(".portion-size-guide").classList.add("hide")
-      : document.querySelector(".portion-size-guide").classList.remove("hide");
 
     // scrollTo only works intermittently without the setTimeout
     setTimeout(function() {
@@ -159,7 +162,7 @@ class Display {
       ? document.querySelector(".size-select-cupcake")
       : document.querySelector(".size-select-cake");
     sizeSelect.addEventListener("change", () => {
-      currentPriceDOM.innerHTML = `$${currentProduct.price[sizeSelect.selectedIndex]}`;
+      currentPriceDOM.forEach(priceDOM => priceDOM.innerHTML = `$${currentProduct.price[sizeSelect.selectedIndex]}`);
     })
 
     let currentQuantity = 1;
