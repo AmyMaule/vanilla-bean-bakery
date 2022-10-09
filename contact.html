@@ -5,13 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Vanilla Bean Bakery</title>
-  <script src="main.js" type="module" defer></script>
-  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../css/styles.css">
-  <!-- box icons for icons -->
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/contact.css">
+  <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <script src="contact.js" defer></script>
   <!-- contentful script for the products -->
   <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+  <script src="main.js" type="module" defer></script>
 </head>
 <body class="body">
   <!-- header -->
@@ -70,48 +71,57 @@
   <div class="header-position"></div>
   <!-- end of header -->
 
-  <!-- main content -->
-  <div class="grid-layout">
-    <div class="background"></div>
-    <h1 class="main-heading">Welcome to <span>The Vanilla Bean</span></h1>
-    <p class="main-para">Here at The Vanilla Bean Bakery, we've been making incredible <a href="#" class="about-link">cakes</a> and <a href="#" class="about-link">cupcakes</a> for many years. Order online or visit our shop to sample some of our latest and greatest creations.</p>
-    <div class="text-container left-text-container">
-      <p class="p-left">We're a team of 6 passionate bakers<span class="p-end"> and decorators</span>, working hard to create delicious cakes and cupcakes from scratch. We don't use any artificial flavours or preservatives, and every item is hand made, just like home baking. We use the highest quality ingredients including locally sourced free range eggs and grass fed butter. All of our products are freshly baked every day, with online orders baked and decorated to order.</p>
-    </div>
-
-    <img src="../images/about/cupcake-decorating.jpg" alt="cupcake-decorating" class="cupcake-decorating">
-    <img src="../images/about/cupcake-display.jpg" alt="cupcakes" class="cupcake-display">
-
-    <div class="text-container right-text-container">
-      <p class="p-right"> We're committed to to doing our best for the environment; all of our takeaway cake boxes are fully recyclable, and at the end of every day, all unsold products are donated to a local foodbank.</p>
-      <p class="p-right">As well as our signature bakes, we also make cakes and cupcakes to order - just get in touch using the contact form to let us know what you'd like and we'll get back to you within one working day. We also offer vegan and dairy-free options for all of our signature flavours, with no extra charge.</p>
-      <p class="p-right p-end">We hope to see you soon!</p>
-      <p class="signature">- The Vanilla Bean <span>team</span></p>
-    </div>
+  <!-- contact section -->
+  <div class="section contact-container">
+    <h1 class="contact-title">Get in Contact</h1>
+    <form action="#" method="post">
+      <div class="name">
+        <label for="name"></label>
+        <input type="text" placeholder="Name" name="name" id="name-input" class="field-required" required="required">
+      </div>
+      <div class="email">
+        <label for="email"></label>
+        <input type="email" placeholder="E-mail address" name="email" class="form-email field-required" required="required">
+      </div>
+      <div class="telephone">
+        <label for="telephone"></label>
+        <input type="text" placeholder="Phone number" name="telephone" id="telephone-input">
+      </div>
+      <div class="subject">
+        <label for="subject"></label>
+        <input type="text" placeholder="Subject" name="subject" id="subject-input" class="field-required" required="required">
+      </div>
+      <div>
+        <label for="message"></label>
+        <textarea name="message" placeholder="Your message" id="message_input" class="form-message field-required" cols="30" rows="5" required="required"></textarea>
+      </div>
+      <button class="btn-send-message">Send Message</button>
+      <div class="sent-message">Thank you for your message! We'll get back to you within 1 working day.</div>
+    </form>
   </div>
-  <!-- end of main content -->
+  <!-- end of contact section -->
 
-<!-- footer -->
+ <!-- footer -->
 <footer class="section footer-container">
   <div class="container">
     <div class="footer">
       <div class="footer-column">
-        <a href="products.html">Products</a>
-        <a href="contact.html">Product Requests</a>
-        <a href="contact.html">Gift Certificates</a>
-        <a href="contact.html">Affiliate Marketing</a>
+        <a href="#">Products</a>
+        <a href="#">Product Requests</a>
+        <a href="#">Gift Certificates</a>
+        <a href="#">Affiliate Marketing</a>
       </div>
       <div class="footer-column">
-        <a href="about.html">About Us</a>
+        <a href="#">About Us</a>
         <a href="#">Newsletter</a>
         <a href="#">Our Locations</a>
         <a href="#">Site Map</a>
       </div>
       <div class="footer-column">
-        <a href="basket.html">Place an Order</a>
-        <a href="contact.html">Allergen Information</a>
-        <a href="basket.html">Shipping</a>
-        <a href="contact.html">Refund Policy</a>
+        <a href="#">Order History</a>
+        <a href="#">Allergen Information</a>
+        <a href="#">Shipping</a>
+        <a href="#">Refund Policy</a>
       </div>
       <div class="footer-column">
         <a href="#">Terms of Service</a>
@@ -124,6 +134,5 @@
   </div>
 </footer>
 <!-- end of footer -->
-
 </body>
 </html>
