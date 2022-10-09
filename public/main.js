@@ -421,13 +421,13 @@ navOpen.addEventListener("click", () => {
         menu.classList.remove("show");
         document.body.classList.remove("show");
         navBar.classList.remove("show");
-    }
-    else {
+    } else {
         menu.classList.add("show");
         document.body.classList.add("show");
         navBar.classList.add("show");
     }
 });
+
 // close the menu when the user clicks the "X"
 navClose.addEventListener("click", () => {
     if (menuPosition < 0) {
@@ -436,6 +436,7 @@ navClose.addEventListener("click", () => {
         navBar.classList.remove("show");
     }
 });
+
 document.body.addEventListener("click", e => {
     // if the user clicks on the body or the navbar (with class "show"), close the menu
     if (e.target.classList.contains("body", "show") || e.target.classList.contains("navbar", "show")) {
