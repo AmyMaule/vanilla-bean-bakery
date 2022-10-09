@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { ACCESS_TOKEN } from "./apikey.js";
 let onlyCakes = false;
 let onlyCupcakes = false;
@@ -17,6 +8,7 @@ const client = contentful.createClient({
     space: "b7l7de9fk9yy",
     accessToken: ACCESS_TOKEN
 });
+
 // basket is initialised to empty array, and overwritten if local storage already contains basket items
 let basket = [];
 class Products {
@@ -44,25 +36,26 @@ class Products {
         });
     }
 }
+
 class Display {
     sortProducts(products) {
-        // 1 is recommended (which sorts by product ID)
+        // 1 is recommended (sorts by product ID)
         if (currentSort === 1) {
             products = products.sort((a, b) => a.productId > b.productId ? 1 : -1);
-            // 2 is price, low to high
         }
+        // 2 is price, low to high
         else if (currentSort === 2) {
             products = products.sort((a, b) => a.price[0] > b.price[0] ? 1 : -1);
-            // 3 is price, high to low
         }
+        // 3 is price, high to low
         else if (currentSort === 3) {
             products = products.sort((a, b) => a.price[0] < b.price[0] ? 1 : -1);
-            // 4 is alphabetical a-z
         }
+        // 4 is alphabetical a-z
         else if (currentSort === 4) {
             products = products.sort((a, b) => a.title > b.title ? 1 : -1);
-            // 5 is reverse alphabetical z-a
         }
+        // 5 is reverse alphabetical z-a
         else if (currentSort === 5) {
             products = products.sort((a, b) => b.title > a.title ? 1 : -1);
         }
@@ -71,6 +64,7 @@ class Display {
         this.displayProducts(products);
         // }
     }
+
     // products is an array of objects, one for each item
     displayProducts(products) {
         products = products.filter(product => {
@@ -85,29 +79,31 @@ class Display {
         });
         let productHTML = "";
         products.forEach(product => {
-            productHTML += `
-      <div class="product" id="${product.productId}">
-      <div class="product-image">
-        <div class="product-more-options-container">
-          <h4 class="product-more-options">More information & size options</h4>
-        </div>
-        <img src="${product.productImage}" alt="">
-      </div>
-      <div class="product-information">
-        <h3 class="product-title">${product.title}</h3>
-        <div class="price-container">
-          <h4 class="price-from">${product.productType === "cake" ? "from" : ""}</h4>
-          <h4 class="price-amount">$${product.price[0]}</h4>
-        </div>
-      </div>
-    </div>`;
+          productHTML += `
+          <div class="product" id="${product.productId}">
+          <div class="product-image">
+            <div class="product-more-options-container">
+              <h4 class="product-more-options">More information & size options</h4>
+            </div>
+            <img src="${product.productImage}" alt="">
+          </div>
+          <div class="product-information">
+            <h3 class="product-title">${product.title}</h3>
+            <div class="price-container">
+              <h4 class="price-from">${product.productType === "cake" ? "from" : ""}</h4>
+              <h4 class="price-amount">$${product.price[0]}</h4>
+            </div>
+          </div>
+        </div>`;
         });
+
         // if the current page is not products.html, productsContainer will be undefined
         let productsContainer = document.querySelector(".products-container") || "";
         if (productsContainer)
             productsContainer.innerHTML = productHTML;
         this.getSingleProduct(products);
     }
+
     // redirects to product.html?productId=xxxx
     getSingleProduct(products) {
         if (document.querySelector(".featured-title"))
@@ -123,6 +119,7 @@ class Display {
             });
         });
     }
+
     displaySingleProduct(currentProduct, productDOM) {
         // replaceState changes the URL without reloading the page (and thus without reloading the script)
         window.history.replaceState(null, "", `products.html?productId=${productDOM.id}`);
@@ -149,10 +146,12 @@ class Display {
             [...document.querySelectorAll(".portion-size-guide, .portion-size-guide-small")].forEach(guide => guide.classList.add("hide"));
             // document.querySelector(".discount-container").classList.add("hide");
         }
+
         // scrollTo only works intermittently without the setTimeout
         setTimeout(function () {
             window.scrollTo(0, 0);
         }, 30);
+
         // change the price on the page based on the size selected
         if (currentProduct.productType === "cake") {
             document.querySelector(".size-select-cake").classList.remove("hide");
@@ -183,6 +182,7 @@ class Display {
                 document.querySelector(".product-qty").innerHTML = String(currentQuantity);
             });
         });
+
         // add a product to the basket
         const addToBasketBtn = document.querySelector(".add-to-basket");
         addToBasketBtn.addEventListener("click", () => {
@@ -218,6 +218,7 @@ class Display {
         });
     }
 }
+
 class CalculateItems {
     static calculateItems(basket) {
         // from the basket, add each quantity array as single digits, then reduce them to find the total number of items in the basket
@@ -230,6 +231,7 @@ class CalculateItems {
         }
     }
 }
+
 class Storage {
     static saveBasket(basket) {
         localStorage.setItem("basket", JSON.stringify(basket));
@@ -242,116 +244,118 @@ class Storage {
         return [];
     }
 }
+
 class Basket {
-    static displayBasket() {
-        // if the basket is empty, hide the banner with the headers
-        if (basket.length === 0) {
-            document.querySelector("#basket-headers").classList.add("hide");
+  static displayBasket() {
+      // if the basket is empty, hide the banner with the headers
+      if (basket.length === 0) {
+          document.querySelector("#basket-headers").classList.add("hide");
+      }
+      else {
+          document.querySelector("#basket-headers").classList.remove("hide");
+      }
+      let basketSubtotal = 0;
+      let discount = 0;
+      const basketContainer = document.querySelector(".basket-container");
+      let basketHTML = "";
+      basket.forEach(item => {
+          item.quantity.forEach((qty, i) => {
+              if (qty !== 0) {
+                  if (item.discount === true) {
+                      basketSubtotal += 0.8 * Number(item.price[i] * qty);
+                      discount += 0.2 * Number(item.price[i] * qty);
+                  }
+                  else {
+                      basketSubtotal += Number(item.price[i] * qty);
+                  }
+                  // &#8209; is used as a non-breaking hyphen to preserve line breaks on a space
+                  basketHTML += `<div class="basket-item">
+        <div class="grid-image">
+          <img src="${item.productImage}" class="basket-item-image" alt="">
+        </div>
+        <div class="grid-product basket-item-title-container">
+          <h6 class="basket-item-title">${item.title}</h6>
+          <div class="basket-item-remove-btn" data-id="${item.id}" data-price="${item.price[i]}">Remove</div>
+        </div>
+        <div class="basket-item-size-container">
+          <h6 class="basket-item-size">${item.productType === "cake"
+                      ? i === 0
+                          ? "Small (6&#8209;inch)"
+                          : i === 1
+                              ? "Medium (8&#8209;inch)"
+                              : "Large (10&#8209;inch)"
+                      : i === 0
+                          ? "1 cupcake"
+                          : "Box of 6"}</h6>
+        </div>
+        <div class="basket-item-price-container">
+          <h6 class="basket-item-price">${item.price[i]}</h6>
+        </div>
+        <div class="basket-item-qty">
+          <i class='bx bx-minus-circle basket-qty-minus' data-id="${item.id}" data-price="${item.price[i]}"></i>
+          <div class="item-qty">${qty}</div>
+          <i class='bx bx-plus-circle basket-qty-plus' data-id="${item.id}" data-price="${item.price[i]}"></i>
+        </div>
+        <div class="basket-item-subtotal-container">
+          <h6 class="basket-item-subtotal">$${(item.price[i] * qty).toFixed(2)}</h6>
+        </div>
+      </div>`;
+              }
+          });
+      });
+
+      if (basketHTML === "") {
+          basketHTML += `<div class="empty-basket">Your basket is empty</div>`;
+      }
+      basketContainer.innerHTML = basketHTML;
+      // update the order total, the delivery (free if order total > $50) and the subtotal
+      document.querySelector(".basket-order-total-value").innerHTML = "$" + basketSubtotal.toFixed(2);
+      document.querySelector(".basket-delivery-value").innerHTML = basketSubtotal > 50 ? "FREE" : "$14.95";
+      document.querySelector(".basket-discount-value").innerHTML = "-$" + discount.toFixed(2);
+      document.querySelector(".basket-subtotal-value").innerHTML = basketSubtotal > 50 ? "$" + (basketSubtotal - discount).toFixed(2) : "$" + (basketSubtotal - discount + 14.95).toFixed(2);
+      // update giftwrapping status
+      document.querySelector(".basket-giftwrapping-yes").addEventListener("click", () => {
+          document.querySelector(".basket-giftwrapping-yes").classList.add("gift-wrapping-selected");
+          document.querySelector(".basket-giftwrapping-no").classList.remove("gift-wrapping-selected");
+      });
+      document.querySelector(".basket-giftwrapping-no").addEventListener("click", () => {
+          document.querySelector(".basket-giftwrapping-no").classList.add("gift-wrapping-selected");
+          document.querySelector(".basket-giftwrapping-yes").classList.remove("gift-wrapping-selected");
+      });
+      let qtyChange = [...document.querySelectorAll(".basket-qty-minus, .basket-qty-plus, .basket-item-remove-btn")];
+      qtyChange.forEach(qty => qty.addEventListener("click", this.updateQty));
+  }
+
+  static updateQty(e) {
+    // direction is "empty" for the remove button, "plus" or "minus" for the quantity change buttons
+    let direction = e.target.classList.contains("basket-item-remove-btn")
+      ? "empty"
+      : e.target.classList.contains("basket-qty-minus")
+        ? "minus"
+        : "plus";
+    basket.filter((item, i) => {
+      if (item.id === e.target.dataset.id) {
+        let index = item.price.indexOf(Number(e.target.dataset.price));
+        if (direction === "plus") {
+          item.quantity[index]++;
+        } else if (direction === "minus") {
+          item.quantity[index]--;
+          // if the new quantity is 0, splice the item out of the basket
+          if (item.quantity[index] === 0)
+              basket.splice(i, 1);
+        } else {
+          // to remove items, set the quantity of the current size option to 0 and the foreEach in this.displayBasket will remove it from the basket
+          basket.splice(i, 1);
         }
-        else {
-            document.querySelector("#basket-headers").classList.remove("hide");
-        }
-        let basketSubtotal = 0;
-        let discount = 0;
-        const basketContainer = document.querySelector(".basket-container");
-        let basketHTML = "";
-        basket.forEach(item => {
-            item.quantity.forEach((qty, i) => {
-                if (qty !== 0) {
-                    if (item.discount === true) {
-                        basketSubtotal += 0.8 * Number(item.price[i] * qty);
-                        discount += 0.2 * Number(item.price[i] * qty);
-                    }
-                    else {
-                        basketSubtotal += Number(item.price[i] * qty);
-                    }
-                    // &#8209; is used as a non-breaking hyphen to preserve line breaks on a space
-                    basketHTML += `<div class="basket-item">
-          <div class="grid-image">
-            <img src="${item.productImage}" class="basket-item-image" alt="">
-          </div>
-          <div class="grid-product basket-item-title-container">
-            <h6 class="basket-item-title">${item.title}</h6>
-            <div class="basket-item-remove-btn" data-id="${item.id}" data-price="${item.price[i]}">Remove</div>
-          </div>
-          <div class="basket-item-size-container">
-            <h6 class="basket-item-size">${item.productType === "cake"
-                        ? i === 0
-                            ? "Small (6&#8209;inch)"
-                            : i === 1
-                                ? "Medium (8&#8209;inch)"
-                                : "Large (10&#8209;inch)"
-                        : i === 0
-                            ? "1 cupcake"
-                            : "Box of 6"}</h6>
-          </div>
-          <div class="basket-item-price-container">
-            <h6 class="basket-item-price">${item.price[i]}</h6>
-          </div>
-          <div class="basket-item-qty">
-            <i class='bx bx-minus-circle basket-qty-minus' data-id="${item.id}" data-price="${item.price[i]}"></i>
-            <div class="item-qty">${qty}</div>
-            <i class='bx bx-plus-circle basket-qty-plus' data-id="${item.id}" data-price="${item.price[i]}"></i>
-          </div>
-          <div class="basket-item-subtotal-container">
-            <h6 class="basket-item-subtotal">$${(item.price[i] * qty).toFixed(2)}</h6>
-          </div>
-        </div>`;
-                }
-            });
-        });
-        if (basketHTML === "") {
-            basketHTML += `<div class="empty-basket">Your basket is empty</div>`;
-        }
-        basketContainer.innerHTML = basketHTML;
-        // update the order total, the delivery (free if order total > $50) and the subtotal
-        document.querySelector(".basket-order-total-value").innerHTML = "$" + basketSubtotal.toFixed(2);
-        document.querySelector(".basket-delivery-value").innerHTML = basketSubtotal > 50 ? "FREE" : "$14.95";
-        document.querySelector(".basket-discount-value").innerHTML = "-$" + discount.toFixed(2);
-        document.querySelector(".basket-subtotal-value").innerHTML = basketSubtotal > 50 ? "$" + (basketSubtotal - discount).toFixed(2) : "$" + (basketSubtotal - discount + 14.95).toFixed(2);
-        // update giftwrapping status
-        document.querySelector(".basket-giftwrapping-yes").addEventListener("click", () => {
-            document.querySelector(".basket-giftwrapping-yes").classList.add("gift-wrapping-selected");
-            document.querySelector(".basket-giftwrapping-no").classList.remove("gift-wrapping-selected");
-        });
-        document.querySelector(".basket-giftwrapping-no").addEventListener("click", () => {
-            document.querySelector(".basket-giftwrapping-no").classList.add("gift-wrapping-selected");
-            document.querySelector(".basket-giftwrapping-yes").classList.remove("gift-wrapping-selected");
-        });
-        let qtyChange = [...document.querySelectorAll(".basket-qty-minus, .basket-qty-plus, .basket-item-remove-btn")];
-        qtyChange.forEach(qty => qty.addEventListener("click", this.updateQty));
-    }
-    static updateQty(e) {
-        // direction is "empty" for the remove button, "plus" or "minus" for the quantity change buttons
-        let direction = e.target.classList.contains("basket-item-remove-btn")
-            ? "empty"
-            : e.target.classList.contains("basket-qty-minus")
-                ? "minus"
-                : "plus";
-        basket.filter((item, i) => {
-            if (item.id === e.target.dataset.id) {
-                let index = item.price.indexOf(Number(e.target.dataset.price));
-                if (direction === "plus") {
-                    item.quantity[index]++;
-                }
-                else if (direction === "minus") {
-                    item.quantity[index]--;
-                    // if the new quantity is 0, splice the item out of the basket
-                    if (item.quantity[index] === 0)
-                        basket.splice(i, 1);
-                }
-                else {
-                    // to remove items, set the quantity of the current size option to 0 and the foreEach in this.displayBasket will remove it from the basket
-                    basket.splice(i, 1);
-                }
-            }
-            Storage.saveBasket(basket);
-            numBasketItemsDOM.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
-            // reload the page to reflect changes instead of making lots of small UI updates
-            location.reload();
-        });
-    }
+      }
+      Storage.saveBasket(basket);
+      numBasketItemsDOM.innerHTML = String(CalculateItems.calculateItems(basket)) || "0";
+      // reload the page to reflect changes instead of making lots of small UI updates
+      location.reload();
+    });
+  }
 }
+
 // create instance of DisplayProducts and Products as soon as the page loads
 const display = new Display();
 const products = new Products();
@@ -361,15 +365,15 @@ numBasketItemsDOM.innerHTML = String(CalculateItems.calculateItems(basket)) || "
 // if .basket exists, basket.html is the current page, so display the current basket
 if (document.querySelector(".basket")) {
     Basket.displayBasket();
+} else {
+  // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
+  products.getProducts()
+    .then(data => {
+    // call sortProducts to make sure current sort is taken into account when displaying the products
+    display.sortProducts(data);
+  });
 }
-else {
-    // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
-    products.getProducts()
-        .then(data => {
-        // call sortProducts to make sure current sort is taken into account when displaying the products
-        display.sortProducts(data);
-    });
-}
+
 // Category selection - cakes, cupcakes or everything
 const categorySelectBtns = Array.from(document.querySelectorAll(".category-select"));
 if (categorySelectBtns.length !== 0) {
@@ -392,6 +396,7 @@ if (categorySelectBtns.length !== 0) {
             .then(data => display.sortProducts(data));
     }));
 }
+
 // Sorting options - by price low to high, recommended, etc
 const sortingOptionsDOM = document.querySelector(".sorting-options") || "";
 if (sortingOptionsDOM) {
@@ -403,6 +408,7 @@ if (sortingOptionsDOM) {
             .then(data => display.sortProducts(data));
     });
 }
+
 // menu is the mobile menu that opens when the hamburger icon is clicked
 const menu = document.querySelector(".menu");
 const navOpen = document.querySelector(".hamburger-menu");
