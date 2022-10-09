@@ -11,7 +11,7 @@ const client = contentful.createClient({
     accessToken: ACCESS_TOKEN
 });
 
-// basket is initialised to empty array, and overwritten if local storage already contains basket items
+// initialise basket to empty array, and overwritten if local storage already contains basket items
 let basket = [];
 
 class Products {
@@ -19,11 +19,12 @@ class Products {
     try {
       // This API call will request an entry with the specified ID from the space defined at the top, using a space-specific access token.
       let products;
-      await client.getEntries({
-        content_type: "product"
-      })
-      .then(data => products = data.items)
-      .catch(err => console.log(err));
+      await client
+        .getEntries({
+          content_type: "product"
+        })
+        .then(data => products = data.items)
+        .catch(err => console.log(err));
 
       const productInformation = products.map(product => {
         const { discount, title, priceSmall, priceMed, priceLarge, productType, flavor, icingFlavor, dripType, topping1, topping2 } = product.fields;
@@ -57,46 +58,42 @@ class Display {
     } else if (currentSort === 5) {
       products = products.sort((a, b) => b.title > a.title ? 1 : -1);
     }
-    // if currentSort is 0 it is on "Sort by", so the product order on the page should not change
-    // if (currentSort !== 0) {
-      this.displayProducts(products);
-    // }
+    this.displayProducts(products);
   }
-
+  
   // products is an array of objects, one for each item
   displayProducts(products) {
     products = products.filter(product => {
       if (onlyCakes) {
-        return product.productType === "cake";
-      } else if (onlyCupcakes) {
-        return product.productType === "cupcake";
-      } else return products;
+      return product.productType === "cake";
+    } else if (onlyCupcakes) {
+      return product.productType === "cupcake";
+    } else return products;
     })
 
     let productHTML = "";
     products.forEach(product => {
       productHTML += `
       <div class="product" id="${product.productId}">
-      <div class="product-image">
-        <div class="product-more-options-container">
-          <h4 class="product-more-options">More information & size options</h4>
+        <div class="product-image">
+          <div class="product-more-options-container">
+            <h4 class="product-more-options">More information & size options</h4>
+          </div>
+          <img src="${product.productImage}" alt="">
         </div>
-        <img src="${product.productImage}" alt="">
-      </div>
-      <div class="product-information">
-        <h3 class="product-title">${product.title}</h3>
-        <div class="price-container">
-          <h4 class="price-from">${product.productType === "cake" ? "from" : ""}</h4>
-          <h4 class="price-amount">$${product.price[0]}</h4>
+        <div class="product-information">
+          <h3 class="product-title">${product.title}</h3>
+          <div class="price-container">
+            <h4 class="price-from">${product.productType === "cake" ? "from" : ""}</h4>
+            <h4 class="price-amount">$${product.price[0]}</h4>
+          </div>
         </div>
-      </div>
-    </div>`
-    })
+      </div>`;
+    });
 
     // if the current page is not products.html, productsContainer will be undefined
     let productsContainer = document.querySelector(".products-container") || "";
     if (productsContainer) productsContainer.innerHTML = productHTML;
-
     this.getSingleProduct(products);
   }
 
@@ -116,7 +113,7 @@ class Display {
   }
 
   displaySingleProduct(currentProduct, productDOM) {
-    // replaceState changes the URL without reloading the page (and thus without reloading the script)
+    // replaceState changes the URL without reloading the page
     window.history.replaceState(null, "", `products.html?productId=${productDOM.id}`);
 
     // hide the current products, and show the selected product
@@ -127,26 +124,25 @@ class Display {
     // dynamically fill in the product details using the selected product data
     document.querySelector(".size-options-title").innerHTML = currentProduct.productType === "cake" ? "Select size :" : "Box size: ";
     document.querySelector(".single-product-image").src = currentProduct.productImage;
+
     // currentTitleDOM holds the desktop version (.single-product-title) and the mobile version (.single-product.title-small)
     const currentTitleDOM = document.querySelectorAll(".single-product-title, .single-product-title-small");
     currentTitleDOM.forEach(titleDOM => titleDOM.innerHTML = currentProduct.title);
+    
     // currentPriceDOM holds the desktop version (.single-product-price) and the mobile version (.single-product.price-small)
     const currentPriceDOM = [...document.querySelectorAll(".single-product-price, .single-product-price-small")];
     currentPriceDOM.forEach(priceDOM => priceDOM.innerHTML = `$${currentProduct.price[0]}`);
     if (currentProduct.productType === "cake") {
-      document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: 6-inch, 8-inch and 10-inch.`;
+      document.querySelector(".single-product-description").innerHTML = 
+        `The ${currentProduct.title} features 4 layers of ${currentProduct.flavor} sponge filled and decorated with ${currentProduct.icingFlavor}. Finished off with an optional ${currentProduct.dripType} drip, ${currentProduct.topping1}, and ${currentProduct.topping2}. Available in the following sizes: 6-inch, 8-inch and 10-inch.`;
       document.querySelector(".portion-size-guide").classList.remove("hide");
-      // document.querySelector(".discount-container").classList.remove("hide");
     } else {
       document.querySelector(".single-product-description").innerHTML = `The ${currentProduct.title} consists of a ${currentProduct.flavor} flavored sponge, filled and decorated with ${currentProduct.icingFlavor}. Finished off with ${currentProduct.topping1}, and a choice of other toppings. Available as individual cupcakes or as a box of 6.`;
       [...document.querySelectorAll(".portion-size-guide, .portion-size-guide-small")].forEach(guide => guide.classList.add("hide"));
-      // document.querySelector(".discount-container").classList.add("hide");
     }
 
     // scrollTo only works intermittently without the setTimeout
-    setTimeout(function() {
-      window.scrollTo(0, 0);
-    }, 30);
+    setTimeout(() => window.scrollTo(0, 0), 30);
 
     // change the price on the page based on the size selected
     if (currentProduct.productType === "cake") {
@@ -201,12 +197,7 @@ class Display {
       }
 
       Storage.saveBasket(basket);
-      // const itemInbasket = Storage.getItem(currentProduct.productId)
-      // console.log(itemInbasket);
       numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
-
-      console.log(...basket);
-      // console.log(currentQuantity, currentProduct.price[sizeSelect.selectedIndex]);
 
       addToBasketBtn.classList.add("added-to-basket");
       addToBasketBtn.innerHTML = "Added to basket";
@@ -214,7 +205,7 @@ class Display {
       setTimeout(() => {
         addToBasketBtn.classList.remove("added-to-basket");
         addToBasketBtn.innerHTML = "Add to basket";
-      }, 1500)
+      }, 2000)
     });
   }
 }
@@ -256,7 +247,7 @@ class Storage {
 class Basket {
   static displayBasket() {
     // if the basket is empty, hide the banner with the headers
-    if (basket.length === 0) {
+    if (!basket.length) {
       document.querySelector("#basket-headers").classList.add("hide");
     } else {
       document.querySelector("#basket-headers").classList.remove("hide");
@@ -276,44 +267,45 @@ class Basket {
           }
 
           // &#8209; is used as a non-breaking hyphen to preserve line breaks on a space
-          basketHTML += `<div class="basket-item">
-          <div class="grid-image">
-            <img src="${item.productImage}" class="basket-item-image" alt="">
-          </div>
-          <div class="grid-product basket-item-title-container">
-            <h6 class="basket-item-title">${item.title}</h6>
-            <div class="basket-item-remove-btn" data-id="${item.id}" data-price="${item.price[i]}">Remove</div>
-          </div>
-          <div class="basket-item-size-container">
-            <h6 class="basket-item-size">${item.productType === "cake"
-                                            ? i === 0
-                                              ? "Small (6&#8209;inch)"
-                                              : i === 1
-                                                ? "Medium (8&#8209;inch)"
-                                                : "Large (10&#8209;inch)"
-                                            : i === 0
-                                              ? "1 cupcake"
-                                              : "Box of 6"
-                                          }</h6>
-          </div>
-          <div class="basket-item-price-container">
-            <h6 class="basket-item-price">${item.price[i]}</h6>
-          </div>
-          <div class="basket-item-qty">
-            <i class='bx bx-minus-circle basket-qty-minus' data-id="${item.id}" data-price="${item.price[i]}"></i>
-            <div class="item-qty">${qty}</div>
-            <i class='bx bx-plus-circle basket-qty-plus' data-id="${item.id}" data-price="${item.price[i]}"></i>
-          </div>
-          <div class="basket-item-subtotal-container">
-            <h6 class="basket-item-subtotal">$${(item.price[i] * qty).toFixed(2)}</h6>
-          </div>
-        </div>`;
+          basketHTML += 
+          `<div class="basket-item">
+            <div class="grid-image">
+              <img src="${item.productImage}" class="basket-item-image" alt="">
+            </div>
+            <div class="grid-product basket-item-title-container">
+              <h6 class="basket-item-title">${item.title}</h6>
+              <div class="basket-item-remove-btn" data-id="${item.id}" data-price="${item.price[i]}">Remove</div>
+            </div>
+            <div class="basket-item-size-container">
+              <h6 class="basket-item-size">
+                ${item.productType === "cake"
+                  ? i === 0
+                    ? "Small (6&#8209;inch)"
+                    : i === 1
+                      ? "Medium (8&#8209;inch)"
+                      : "Large (10&#8209;inch)"
+                  : i === 0
+                    ? "1 cupcake"
+                    : "Box of 6"
+                }
+              </h6>
+            </div>
+            <div class="basket-item-price-container">
+              <h6 class="basket-item-price">${item.price[i]}</h6>
+            </div>
+            <div class="basket-item-qty">
+              <i class='bx bx-minus-circle basket-qty-minus' data-id="${item.id}" data-price="${item.price[i]}"></i>
+              <div class="item-qty">${qty}</div>
+              <i class='bx bx-plus-circle basket-qty-plus' data-id="${item.id}" data-price="${item.price[i]}"></i>
+            </div>
+            <div class="basket-item-subtotal-container">
+              <h6 class="basket-item-subtotal">$${(item.price[i] * qty).toFixed(2)}</h6>
+            </div>
+          </div>`;
         }
       })
     });
-    if (basketHTML === "") {
-      basketHTML += `<div class="empty-basket">Your basket is empty</div>`
-    }
+    if (basketHTML === "") basketHTML += `<div class="empty-basket">Your basket is empty</div>`;
     basketContainer.innerHTML = basketHTML;
 
     // update the order total, the delivery (free if order total > $50) and the subtotal
@@ -364,7 +356,6 @@ class Basket {
       // reload the page to reflect changes instead of making lots of small UI updates
       location.reload();
     })
-
   }
 }
 
@@ -379,12 +370,10 @@ numBasketItemsDOM.innerHTML = CalculateItems.calculateItems(basket) || "0";
 if (document.querySelector(".basket")) {
   Basket.displayBasket();
 } else {
-  // call getProducts from the Products class, then pass the product data to the displayProducts method from the Display class
+  // pass the product data from getProducts to the displayProducts method from the Display class
   products.getProducts()
-  .then(data => {
-    // call sortProducts to make sure current sort is taken into account when displaying the products
-    display.sortProducts(data);
-  });
+    // call sortProducts to make sure current sort is taken into account
+    .then(data => display.sortProducts(data));
 }
 
 // Category selection - cakes, cupcakes or everything
@@ -414,11 +403,11 @@ if (categorySelectBtns.length !== 0) {
 const sortingOptionsDOM = document.querySelector(".sorting-options") || "";
 if (sortingOptionsDOM) {
   sortingOptionsDOM.addEventListener("change", () => {
-    // currentSort is set to the index of the selected sorting option for use in the display.sortProducts method
+    // currentSort is the index of the selected sorting option for use in the display.sortProducts method
     currentSort = sortingOptionsDOM.selectedIndex;
     products.getProducts()
     // call sortProducts to make sure current sort is taken into account when displaying the products
-    .then(data => display.sortProducts(data));
+      .then(data => display.sortProducts(data));
   })
 }
 

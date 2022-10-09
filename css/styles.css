@@ -405,7 +405,7 @@ body.show::before {
 
 .product-title {
   font-size: 2.4rem;
-  padding-bottom: 10px;
+  padding: 0 6px 10px 6px;
 }
 
 .price-container {
@@ -968,6 +968,10 @@ body.show::before {
     max-width: 300px;
   }
 
+  .product-more-options {
+    top: 210px;
+  }
+
   .align-products {
     padding: 0;
   }
@@ -1013,15 +1017,27 @@ body.show::before {
 
   .product {
     height: 360px;
+    height: fit-content;
+    max-width: 270px;
+    padding-bottom: 10px;
   }
 
-  .product-image, .product-image img {
-    max-height: 260px;
-    max-width: 260px;
+  .product-image {
+    max-height: 270px;
+  }
+  
+  .product-image img {
+    max-height: 270px;
+    max-width: 270px;
   }
 
   .product-information {
     padding-top: 2.4rem;
+  }
+
+  .product-more-options {
+    font-size: 1.75rem;
+    top: 180px;
   }
 
   .category {
