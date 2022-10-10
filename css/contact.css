@@ -277,7 +277,6 @@ textarea:focus {
   .sent-message {
     left: calc(50% - 175px);
     max-width: 210px;
-    /* check heiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiight */
   }
 
   .btn-send-message {

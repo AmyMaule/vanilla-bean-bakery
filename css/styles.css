@@ -267,7 +267,7 @@ body.show::before {
 #shop-now-section {
   display: block;
   position: relative;
-  /* this anchor gets a top of minus 70px to offset the 70px header that is position: fixed */
+  /* top of -70px offsets the 70px header with position: fixed */
   top: -70px;
   visibility: hidden;
 }
@@ -336,7 +336,6 @@ body.show::before {
   padding-right: 0;
 }
 /* end of category selection */
-
 
 /* featured Products, plus some product styling from products.html */
 .featured {
@@ -636,6 +635,7 @@ body.show::before {
   .num-basket-items-container {
     display: none;
   }
+
   /* side menu that opens on hamburger click */
   .menu {
     position: fixed;
@@ -650,13 +650,13 @@ body.show::before {
   }
 
   .navbar.fix-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #6f242a;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  z-index: 50;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #6f242a;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 50;
   }
 
   .mobile-navbar {
@@ -871,12 +871,12 @@ body.show::before {
 }
 
 @media only screen and (max-width: 515px) {
-.footer {
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 40px;
-  margin-left: -1rem;
-  overflow: hidden;
-  }
+  .footer {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    margin-left: -1rem;
+    overflow: hidden;
+    }
 }
 
 @media only screen and (max-width: 532px) {
@@ -945,7 +945,6 @@ body.show::before {
   .menu {
     width: 80%;
   }
-
 }
 
 @media only screen and (max-width: 420px) {
@@ -1049,7 +1048,6 @@ body.show::before {
   }
 
   .header-title {
-    /* margin-left: 0.2rem; */
     margin-left: 0.8rem;
   }
 }

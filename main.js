@@ -381,21 +381,33 @@ const categorySelectBtns = Array.from(document.querySelectorAll(".category-selec
 if (categorySelectBtns.length !== 0) {
   // show cakes and/or cupcakes based on whether onlyCupcakes and onlyCakes are true or false - if both are false, all categories will show, if either is true, only that category will be shown
   categorySelectBtns.forEach(btn => btn.addEventListener("click", e => {
+      // if the button contains selected and select-cupcake, reset all
+
+
     // the "selected" class highlights the selected category for the user - first remove "selected" from all buttons, then re-add it to the correct button
-    categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
-    e.target.classList.add("selected");
+    // btn.classList.add("selected");
+    
     // reset onlyCakes and onlyCupcakes to false
     onlyCakes = false;
     onlyCupcakes = false;
-    if (e.target.classList.contains("select-cake")) {
-      onlyCakes = true;
-    } else if (e.target.classList.contains("select-cupcake")) {
-      onlyCupcakes = true;
+    
+    if (btn.classList.contains("selected")) {
+      btn.classList.remove("selected");
+    } else {
+      categorySelectBtns.forEach(btn => btn.classList.remove("selected"));
+      btn.classList.add("selected");
+
+      if (btn.classList.contains("select-cake")) {
+        onlyCakes = true;
+      } else if (btn.classList.contains("select-cupcake")) {
+        onlyCupcakes = true;
+      }
     }
 
+    // ensure current sort is taken into account when displaying the products
     products.getProducts()
-    // call sortProducts to make sure current sort is taken into account when displaying the products
-    .then(data => display.sortProducts(data));
+      .then(data => display.sortProducts(data))
+      .catch(err => console.log(err));
   }))
 }
 
@@ -405,28 +417,27 @@ if (sortingOptionsDOM) {
   sortingOptionsDOM.addEventListener("change", () => {
     // currentSort is the index of the selected sorting option for use in the display.sortProducts method
     currentSort = sortingOptionsDOM.selectedIndex;
+    
+    // ensure current sort is taken into account when displaying the products
     products.getProducts()
-    // call sortProducts to make sure current sort is taken into account when displaying the products
-      .then(data => display.sortProducts(data));
+      .then(data => display.sortProducts(data))
+      .catch(err => console.log(err));
   })
 }
 
 // menu is the mobile menu that opens when the hamburger icon is clicked
 const menu = document.querySelector(".menu");
+const menuPosition = menu.getBoundingClientRect().left;
 const navOpen = document.querySelector(".hamburger-menu");
 const navClose = document.querySelector(".x-close");
 const navBar = document.querySelector(".navbar");
 
-// menuPosition gets the left value of the mobile navbar menu
-const menuPosition = menu.getBoundingClientRect().left;
-navOpen.addEventListener("click", () => {
+navOpen.addEventListener("click", () => {``
   if (menu.classList.contains("show")) {
-    console.log("clicked shut");
     menu.classList.remove("show");
     document.body.classList.remove("show");
     navBar.classList.remove("show");
   } else {
-    console.log("clicked open");
     menu.classList.add("show");
     document.body.classList.add("show");
     navBar.classList.add("show");
@@ -445,12 +456,8 @@ navClose.addEventListener("click", () => {
 document.body.addEventListener("click", e => {
   // if the user clicks on the body or the navbar (with class "show"), close the menu
     if (e.target.classList.contains("body", "show") || e.target.classList.contains("navbar", "show")) {
-      console.log(e.target);
       menu.classList.remove("show");
       document.body.classList.remove("show");
       navBar.classList.remove("show");
   }
-})
-
-// TODO
-// responsive styles for single product page
+});

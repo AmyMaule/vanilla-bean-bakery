@@ -56,12 +56,13 @@
 
 .category-select {
   font-size: 3rem;
-  margin-left: 4rem;
   border-radius: 100vmax;
   min-width: 120px;
   text-align: center;
   background-color: #f6f2f1;
+  border: 2px solid #f6f2f1;
   padding: 1rem;
+  margin-left: 4rem;
   cursor: pointer;
   outline: none;
   /* stop the user selecting the text within the category-select buttons */
@@ -88,27 +89,6 @@
   margin-bottom: 2rem;
   width: 100%;
 }
-
-/*
-.sorting-options {
-  display: block;
-  margin-left: auto;
-  margin-right: 6rem;
-  font-size: 1.8rem;
-  font-family: inherit;
-  padding: 0.5rem 1rem 0.5rem 1.5rem;
-  background-color: #e9d1d2;
-  outline: none;
-  border: 2px solid #e46c6c;
-  border-radius: 100vmax;
-  cursor: pointer;
-  min-width: 180px;
-}
-
-.sorting-options option {
-  font-family: Saphira;
-  display: none;
-} */
 
 select {
   appearance: none;
