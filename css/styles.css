@@ -112,6 +112,9 @@ body.show::before {
 }
 
 .menu-item {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   transition: ease 0.3s;
   -moz-transition: ease 0.3s;
 	-ms-transition: ease 0.3s;
