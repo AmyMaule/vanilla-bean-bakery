@@ -26,7 +26,7 @@ Products can be sorted by price (low to high and high to low), alphabetically (A
 as its own basket item, and the basket also automatically applies discounts based on the current sale 
 promoted on the homepage.
 
-## Live version [here](https://vanillabeanbakery.netlify.app/).
+## Live version [here](https://vanilla-bean-bakery.pages.dev/).
 <br>
 
 ### Built With
@@ -61,7 +61,7 @@ The Vanilla Bean Bakery website is fully responsive so can be viewed from any sc
 <!-- CONTRIBUTING -->
 ## Contributing
 
-If you find a bug, please open an issue [here](https://github.com/AmyMaule/bakery-commerce/issues/new), including as much information as you can.<br>
+If you find a bug, please open an issue [here](https://github.com/AmyMaule/vanilla-bean-bakery/issues/new), including as much information as you can.<br>
 <br>
 <!-- LICENSE -->
 ## License
